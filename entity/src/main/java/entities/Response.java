@@ -1,7 +1,5 @@
 package entities;
 
-import org.springframework.boot.orm.jpa.EntityScan;
-
 import javax.persistence.*;
 
 /**
