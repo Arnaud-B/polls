@@ -14,22 +14,15 @@ import services.IHelloService;
 @Controller
 public class IndexController {
 
-    @Autowired
-    private IHelloService helloService;
-
     @RequestMapping(path = "/",method = RequestMethod.GET)
-    public ModelAndView indexView(){
+    public ModelAndView indexViewGet(){
         ModelAndView model = new ModelAndView("index");
-        model.addObject("message","Hello world from indexController -> " + helloService.hello());
-        System.out.println(model);
         return model;
     }
 
-    /*@RequestMapping("/")
-    public @ResponseBody String index(){
-        System.out.println("index controller");
-        return "index";
-    }*/
-
-
+    @RequestMapping(path = "/",method = RequestMethod.POST)
+    public ModelAndView indexViewPost(){
+        ModelAndView model = new ModelAndView("index");
+        return model;
+    }
 }

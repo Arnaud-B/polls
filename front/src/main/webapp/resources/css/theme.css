@@ -1,0 +1,31 @@
+body {
+    display: flex;
+    min-height: 100vh;
+    flex-direction: column;
+}
+
+main {
+    flex: 1 0 auto;
+}
+.side-nav .collapsible-header:hover, .collapsible-body li a:hover, .side-nav.fixed .collapsible-header:hover {
+    background-color: white;
+    border-left: 7px solid #2196f3 !important;
+    border-color: #2196f3 !important;
+}
+/*
+.active {
+    background-color: #2196f3;
+}
+*/
+
+.secondary-content {
+    color: #2196f3;
+}
+
+li > span {
+    color: #2196f3;
+}
+
+blockquote {
+    border-left: 5px solid #2196f3;
+}
