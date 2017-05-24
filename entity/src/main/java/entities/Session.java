@@ -1,7 +1,8 @@
-package entitiess;
+package entities;
 
 import javax.persistence.*;
 import java.sql.Date;
+import java.util.Set;
 
 /**
  * Created by nono on 23/05/2017.
@@ -12,16 +13,27 @@ public class Session {
 
     @Id
     @GeneratedValue(strategy= GenerationType.AUTO)
+    @Column
     private Integer id;
 
+    @Column
     private String name;
 
+    @Column
     private String question;
 
+    @Column
     private Date start_date;
 
+    @Column
     private Date end_date;
 
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    private User user;
+
+    @OneToMany(mappedBy = "session", cascade = CascadeType.ALL)
+    private Set<Response> responses;
 
     public Integer getId() {
         return id;
@@ -61,5 +73,21 @@ public class Session {
 
     public void setEnd_date(Date end_date) {
         this.end_date = end_date;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+
+    public Set<Response> getResponses() {
+        return responses;
+    }
+
+    public void setResponses(Set<Response> responses) {
+        this.responses = responses;
     }
 }
