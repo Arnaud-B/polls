@@ -18,14 +18,19 @@ public class User {
 
     private String email;
 
+    private String password;
+
+    public User() { }
+
     public User(int id) {
         this.id = id;
     }
 
-    public User(String email, String firstname, String lastname) {
+    public User(String email, String firstname, String lastname, String password) {
         this.email = email;
         this.firstname = firstname;
         this.lastname = lastname;
+        this.password = password;
     }
 
     public Integer getId() {
@@ -50,6 +55,14 @@ public class User {
 
     public void setLastname(String lastname) {
         this.lastname = lastname;
+    }
+
+    public String gePassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 
     public String getEmail() {
