@@ -39,18 +39,18 @@
                     <blockquote>
                         Choisissez un sondage pour afficher ses histogrammes.
                     </blockquote>
-                    <div class="input-field col s12">
-                        <select>
-                            <option value="" disabled selected>Sélectionnez un sondage</option>
-                            <option class="blue-text" value="1">Sondage n°1</option>
-                            <option class="blue-text" value="2">Sondage n°2</option>
-                            <option class="blue-text" value="3">Sondage n°3</option>
-                        </select>
-                        <label>Sondage</label>
-                    </div>
-                    <h4 class="blue-text">Histogramme du nombre de réponses par tranche d'âge</h4>
-                    <canvas id="myChart" width="400" height="400"></canvas>
-                    <h4 class="blue-text">Histogramme des réponses par tranche d'âge</h4>
+                    <form action="/stats" method="get" id="poll">
+                        <div class="input-field">
+                            <select name="id" form="poll">
+                                <option value="" disabled selected>Sélectionnez un sondage</option>
+                                <option class="blue-text" value="1">Sondage n°1</option>
+                                <option class="blue-text" value="2">Sondage n°2</option>
+                                <option class="blue-text" value="3">Sondage n°3</option>
+                            </select>
+                            <label>Sondage</label>
+                            <button class="btn blue waves-effect waves-light" type="submit">Suivant</button>
+                        </div>
+                    </form>
                 </div>
             </div>
         </div>
@@ -59,41 +59,5 @@
 <%--<jsp:include page="footer.jsp"/>--%>
 <jsp:include page="import_js.jsp"/>
 <script src="<c:url value="/resources/js/theme.js"/>" type="text/javascript"></script>
-<script src="<c:url value="/resources/js/Chart.bundle.min.js"/> " type="text/javascript"></script>
-<script>
-    var ctx = document.getElementById("myChart");
-    var myChart = new Chart(ctx, {
-        type: 'bar',
-        data: {
-            labels: ["-10", "10-15", "15-20", "20-25", "25-30", "30-35", "35-40", "40-45", "45-50", "50-55", "55-60", "60-65", "65-70", "70-75", "75-80", "80-85", "85-90"],
-            datasets: [{
-                label: "Nombres de réponses par tranche d'âge",
-                data: [12, 19, 3, 5, 2, 3],
-                backgroundColor: 'rgba(255, 99, 132, 0.2)',
-                borderColor: 'rgba(255,99,132,1)',
-                borderWidth: 1
-            }]
-        },
-        options: {
-            scales: {
-                yAxes: [{
-                    ticks: {
-                        beginAtZero:true
-                    },
-                    scaleLabel : {
-                        display : true,
-                        labelString : "Nombre de réponses"
-                    }
-                }],
-                xAxes: [{
-                    scaleLabel : {
-                        display : true,
-                        labelString : "Âge"
-                    }
-                }]
-            }
-        }
-    });
-</script>
 </body>
 </html>

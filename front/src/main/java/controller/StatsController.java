@@ -1,8 +1,7 @@
 package controller;
 
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 /**
@@ -17,4 +16,17 @@ public class StatsController {
         return model;
     }
 
+    @RequestMapping(path = "/stats/{id}",method = RequestMethod.GET)
+    @ResponseBody
+    public ModelAndView statsViewGetById(@PathVariable int id){
+        ModelAndView model = new ModelAndView("histo");
+        model.addObject(id);
+        return model;
+    }
+
+    @RequestMapping(path = "/stats?id={id}",method = RequestMethod.GET)
+    @ResponseBody
+    public String statsRedirect(@PathVariable int id){
+        return "redirect:/stats/"+id;
+    }
 }

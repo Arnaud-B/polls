@@ -25,4 +25,10 @@ public class IndexController {
         ModelAndView model = new ModelAndView("index");
         return model;
     }
+
+    @RequestMapping(path = "/user", method = RequestMethod.POST)
+    public ModelAndView indexUserGet(){
+        ModelAndView model = new ModelAndView("user");
+        return model;
+    }
 }

@@ -17,7 +17,33 @@
 <main>
     <jsp:include page="sidebar.jsp"/>
     <div class="row">
-
+        <div class="col s8 offset-s3">
+            <div class="card">
+                <div class="card-content">
+                    <h3 class="blue-text">Créer un rédacteur</h3>
+                    <form action="/create/user" method="post" style="margin-top: 50px;">
+                        <div class="input-field">
+                            <div class="input-field">
+                                <input placeholder="Pseudo" id="pseudo" name="pseudo" type="text" class="validate">
+                                <label for="pseudo">Pseudo</label>
+                            </div>
+                            <div class="input-field">
+                                <input placeholder="Âge" id="age" type="text" name="age" class="validate" pattern="{0-9}">
+                                <label for="age">Âge</label>
+                            </div>
+                            <div class="input-field">
+                                <input placeholder="Mot de passe" id="password" name="password" type="password" class="validate">
+                                <label for="password">Mot de passe</label>
+                            </div>
+                            <div class="center-align">
+                                <button class="btn blue waves-effect waves-light" type="submit" name="action">Créer</button>
+                                <button class="btn red waves-effect waves-light" type="reset" name="action">Annuler</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
     </div>
 </main>
 <%--<jsp:include page="footer.jsp"/>--%>
