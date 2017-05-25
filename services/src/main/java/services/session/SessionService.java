@@ -23,7 +23,7 @@ public class SessionService implements ISessionService {
 
 
     @Override
-    public void deleteUserById(Integer id) {
+    public void deleteSessionById(Integer id) {
         sessionRepository.deleteSessionById(id);
     }
 
