@@ -16,6 +16,9 @@ public class User {
     private Integer id;
 
     @Column
+    private String username;
+
+    @Column
     private String firstname;
 
     @Column
@@ -23,6 +26,9 @@ public class User {
 
     @Column
     private String email;
+
+    @Column
+    private int age;
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
     private Set<Session> sessions;
@@ -45,11 +51,13 @@ public class User {
         this.id = id;
     }
 
-    public User(String email, String firstname, String lastname, String password) {
+    public User(String email, String username, String firstname, String lastname, String password, int age) {
         this.email = email;
+        this.username = username;
         this.firstname = firstname;
         this.lastname = lastname;
         this.password = password;
+        this.age = age;
     }
 
     public Integer getId() {
@@ -58,6 +66,22 @@ public class User {
 
     public void setId(Integer id) {
         this.id = id;
+    }
+
+    public Integer getAge() {
+        return id;
+    }
+
+    public void setAge(int age) {
+        this.age = age;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
     }
 
     public String getFirstname() {
@@ -76,7 +100,7 @@ public class User {
         this.lastname = lastname;
     }
 
-    public String gePassword() {
+    public String getPassword() {
         return password;
     }
 

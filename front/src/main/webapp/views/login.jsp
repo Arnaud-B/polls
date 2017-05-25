@@ -18,15 +18,15 @@
             <div class="card z-depth-3">
                 <div class="card-content">
                     <span class="card-title black-text">Polls</span>
-                    <form action="/" method="post">
+                    <form action="/login/action" method="post">
                         <div class="input-field">
-                            <input placeholder="Pseudo" id="pseudo" type="text" class="validate">
-                            <label for="pseudo">Pseudo</label>
+                            <input placeholder="Pseudo" id="username" name="username" type="text" class="validate">
+                            <label for="username">Pseudo</label>
                         </div>
-                        <div class="input-field">
+                        <!--<div class="input-field">
                             <input placeholder="Âge" id="age" type="text" class="validate" pattern="{0-9}">
                             <label for="age">Âge</label>
-                        </div>
+                        </div>-->
                         <button class="btn blue waves-effect waves-light" type="submit" name="action">Suivant</button>
                     </form>
                 </div>
