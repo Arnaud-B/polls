@@ -2,6 +2,7 @@ package services.session;
 
 import entities.Session;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 import repository.SessionRepository;
 
 import java.util.List;
@@ -9,6 +10,7 @@ import java.util.List;
 /**
  * Created by nono on 25/05/2017.
  */
+@Service
 public class SessionService implements ISessionService {
 
     @Autowired
@@ -17,8 +19,8 @@ public class SessionService implements ISessionService {
 
     @Override
     public Session save(Session session) {
-        Session user_db = sessionRepository.save(session);
-        return user_db;
+        Session session_db = sessionRepository.save(session);
+        return session_db;
     }
 
 

@@ -2,6 +2,7 @@ package services.response;
 
 import entities.Response;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 import repository.ResponseRepository;
 
 
@@ -10,6 +11,7 @@ import java.util.List;
 /**
  * Created by nono on 25/05/2017.
  */
+@Service
 public class ResponseService implements IResponseService {
 
     @Autowired
