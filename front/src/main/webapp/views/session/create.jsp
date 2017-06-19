@@ -33,41 +33,11 @@
                                 <input placeholder="Question" id="question" name="question" type="text" class="validate">
                                 <label for="question">Question</label>
                             </div>
-                            <div class="input-field">
-                                <input placeholder="Réponse n°1" id="answer1" type="text" name="answer">
-                                <label for="answer1">Réponse n°1</label>
-                            </div>
-                            <div class="input-field hiddendiv" id="div2">
-                                <input placeholder="Réponse n°2" id="answer2" type="text" name="answer">
-                                <label for="answer2">Réponse n°2</label>
-                            </div>
-                            <div class="input-field hiddendiv" id="div3">
-                                <input placeholder="Réponse n°3" id="answer3" type="text" name="answer">
-                                <label for="answer3">Réponse n°3</label>
-                            </div>
-                            <div class="input-field hiddendiv" id="div4">
-                                <input placeholder="Réponse n°4" id="answer4" type="text" name="answer">
-                                <label for="answer4">Réponse n°4</label>
-                            </div>
-                            <div class="input-field hiddendiv" id="div5">
-                                <input placeholder="Réponse n°5" id="answer5" type="text" name="answer">
-                                <label for="answer5">Réponse n°5</label>
-                            </div>
-                            <div class="input-field hiddendiv" id="div6">
-                                <input placeholder="Réponse n°6" id="answer6" type="text" name="answer">
-                                <label for="answer6">Réponse n°6</label>
-                            </div>
-                            <div class="input-field hiddendiv" id="div7">
-                                <input placeholder="Réponse n°7" id="answer7" type="text" name="answer">
-                                <label for="answer7">Réponse n°7</label>
-                            </div>
-                            <div class="input-field hiddendiv" id="div8">
-                                <input placeholder="Réponse n°8" id="answer8" type="text" name="answer">
-                                <label for="answer8">Réponse n°8</label>
-                            </div>
-                            <div class="input-field hiddendiv" id="div9">
-                                <input placeholder="Réponse n°9" id="answer9" type="text" name="answer">
-                                <label for="answer9">Réponse n°9</label>
+                            <div id="answers">
+                                <div class="input-field">
+                                    <input placeholder="Réponse n°1" id="answer1" type="text" name="answer1">
+                                    <label for="answer1">Réponse n°1</label>
+                                </div>
                             </div>
                             <div class="center-align">
 
@@ -91,22 +61,23 @@
     function addAnswer() {
         if(i < 10){
             i++;
-            var div = $("#div"+i);
-            div.removeClass("hiddendiv");
-            div.hide().fadeIn(2000);
-            $("#removeButton").removeClass("disabled");
+            var html = "<div class='input-field' id='input_"+ i +"'>" +
+                "<input placeholder='Réponse n°" + i + "' id='answer" + i + "' type='text' name='answer"+ i + "' class='validate'>" +
+                "<label for='answer" + i + "'>Réponse n°" + i + " </label>" +
+                "</div>";
+            $(html).hide().appendTo("#answers").fadeIn(1000);
+            if(i > 1)
+                $("#removeButton").removeClass("disabled");
         }
     }
     function removeAnswer() {
         if(i > 1){
-            var div = $("#div"+i);
-            $("#div"+ i +" > :input").val("");
-            div.show().fadeOut(2000);
-            //div.fadeOut(3000);
-            //div.addClass("hiddendiv");
+            var div = $("#input_"+i);
+            $("#input_"+ i +" > :input").val("");
+            div.remove();
             i--;
-        } else {
-            $("#removeButton").addClass("disabled");
+            if(i == 1)
+                $("#removeButton").addClass("disabled");
         }
     }
 </script>
