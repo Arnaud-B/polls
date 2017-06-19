@@ -60,7 +60,7 @@ public class SessionController {
         System.out.println(str_id);
         int id = Integer.parseInt(str_id);
         Session session = sessionService.findById(id);
-        ModelAndView model = new ModelAndView("session/index");
+        ModelAndView model = new ModelAndView("session/detail");
         model.addObject("session", session);
         return model;
     }

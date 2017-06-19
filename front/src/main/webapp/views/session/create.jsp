@@ -23,7 +23,7 @@
                     <h3 class="blue-text">Créer un sondage</h3>
                     <button class="btn-floating red waves-effect waves-light disabled right" id="removeButton" type="button" onclick="removeAnswer()"><i class="material-icons">remove</i></button>
                     <button class="btn-floating blue waves-effect waves-light right" id="addButton" type="button" onclick="addAnswer()"><i class="material-icons">add</i></button>
-                    <form action="/session/create/success" method="POST" style="margin-top: 50px;">
+                    <form action="/session/create/success/" method="POST" style="margin-top: 50px;">
                         <div class="input-field">
                             <div class="input-field">
                                 <input placeholder="Question" id="question" name="question" type="text" class="validate">
