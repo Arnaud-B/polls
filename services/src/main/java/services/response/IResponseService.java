@@ -11,6 +11,7 @@ public interface IResponseService {
 
     Response findById(Integer id);
     List<Response> findAll();
+    List<Response> findBySession_Id(Integer id);
     boolean exists(Integer id);
     Response save(Response response);
     void deleteResponseById(Integer id);

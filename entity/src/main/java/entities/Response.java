@@ -30,6 +30,10 @@ public class Response {
         this.session = session;
     }
 
+    public Response() {
+
+    }
+
     public Integer getId() {
         return id;
     }

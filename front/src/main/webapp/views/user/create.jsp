@@ -21,11 +21,11 @@
             <div class="card">
                 <div class="card-content">
                     <h3 class="blue-text">Créer un rédacteur</h3>
-                    <form action="/create/user" method="post" style="margin-top: 50px;">
+                    <form action="/user/create/success/" method="post" style="margin-top: 50px;">
                         <div class="input-field">
                             <div class="input-field">
-                                <input placeholder="Pseudo" id="pseudo" name="pseudo" type="text" class="validate">
-                                <label for="pseudo">Pseudo</label>
+                                <input placeholder="username" id="username" name="username" type="text" class="validate">
+                                <label for="username">username</label>
                             </div>
                             <div class="input-field">
                                 <input placeholder="Âge" id="age" type="text" name="age" class="validate" pattern="{0-9}">

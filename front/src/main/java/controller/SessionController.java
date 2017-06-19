@@ -32,9 +32,10 @@ public class SessionController {
     }
 
     @RequestMapping(path = "/session/create/success/",method = RequestMethod.POST)
-    public ModelAndView createSuccessView(@RequestParam String question, @RequestParam String[] answer){
+    public ModelAndView createSuccessView(@RequestParam String question, @RequestParam String name, @RequestParam String[] answer){
         Session session = new Session();
         session.setQuestion(question);
+        session.setName(name);
         Session s = sessionService.save(session);
         for(int i = 0; i < answer.length; i++)
         {
@@ -44,6 +45,16 @@ public class SessionController {
             }
         }
         ModelAndView model = new ModelAndView("session/create_success");
+        return model;
+    }
+
+    @RequestMapping(path = "/session/answer/success/",method = RequestMethod.POST)
+    public ModelAndView answerSuccessView(@RequestParam String[] responses_id){
+        for (String response : responses_id)
+        {
+            System.out.println(response);
+        }
+        ModelAndView model = new ModelAndView("session/answer_success");
         return model;
     }
 
@@ -57,11 +68,15 @@ public class SessionController {
 
     @RequestMapping(path = "/session/{id}/",method = RequestMethod.GET)
     public ModelAndView detailView(@PathVariable(value="id") String str_id){
-        System.out.println(str_id);
+
         int id = Integer.parseInt(str_id);
         Session session = sessionService.findById(id);
+
+        List<Response> responses = responseService.findBySession_Id(id);
+
         ModelAndView model = new ModelAndView("session/detail");
         model.addObject("session", session);
+        model.addObject("responses", responses);
         return model;
     }
 

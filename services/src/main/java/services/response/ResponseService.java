@@ -23,6 +23,10 @@ public class ResponseService implements IResponseService {
         return responseRepository.save(response);
     }
 
+    @Override
+    public List<Response> findBySession_Id(Integer id) {
+        return responseRepository.findBySession_Id(id);
+    }
 
     @Override
     public void deleteResponseById(Integer id) {

@@ -20,10 +20,20 @@
         <div class="col s8 offset-s3">
             <div class="card">
                 <div class="card-content">
-                    <h3 class="blue-text">Sondage n°${session.id}</h3>
+                    <form action="/session/answer/success/" method="POST" style="margin-top: 50px;">
+                        <h3 class="blue-text">Sondage n°${session.id}</h3>
 
-                    id:  ${session.id}/Name: ${session.name}/Question: ${session.question} <br/>
-
+                        Name: ${session.name}/Question: ${session.question} <br/>
+                        <c:forEach var="response" items="${responses}">
+                            <div>
+                                <input type="checkbox" value="${response.id}" id="response_${response.id}" name="responses_id" />
+                                <label for="response_${response.id}">${response.label}</label>
+                            </div>
+                        </c:forEach>
+                        <div class="center-align">
+                            <button class="btn blue waves-effect waves-light" type="submit">Ajouter</button>
+                        </div>
+                    </form>
                 </div>
             </div>
         </div>
