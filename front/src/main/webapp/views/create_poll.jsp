@@ -89,7 +89,8 @@
             i++;
             var div = $("#div"+i);
             div.removeClass("hiddendiv");
-            div.hide().fadeIn(2000);
+            div.removeClass("animated-fadeOutLeft");
+            div.addClass('animated-fadeInRight');
             $("#removeButton").removeClass("disabled");
         }
     }
@@ -97,7 +98,8 @@
         if(i > 1){
             var div = $("#div"+i);
             $("#div"+ i +" > :input").val("");
-            div.show().fadeOut(2000);
+            div.remove("animated-fadeInRight");
+            div.addClass("animated-fadeOutLeft");
             //div.fadeOut(3000);
             //div.addClass("hiddendiv");
             i--;
