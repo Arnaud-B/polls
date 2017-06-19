@@ -58,9 +58,9 @@
         if(i < 10){
             i++;
             var html = "<div class='input-field' id='input_"+ i +"'>" +
-            "<input placeholder='Réponse n°" + i + "' id='answer" + i + "' type='text' name='answer"+ i + "' class='validate'>" +
-            "<label for='answer" + i + "'>Réponse n°" + i + " </label>" +
-            "</div>";
+                "<input placeholder='Réponse n°" + i + "' id='answer" + i + "' type='text' name='answer"+ i + "' class='validate'>" +
+                "<label for='answer" + i + "'>Réponse n°" + i + " </label>" +
+                "</div>";
             $(html).hide().appendTo("#answers").fadeIn(1000);
             if(i > 1)
                 $("#removeButton").removeClass("disabled");
@@ -70,7 +70,6 @@
         if(i > 1){
             var div = $("#input_"+i);
             $("#input_"+ i +" > :input").val("");
-            div.fadeOut(750);
             div.remove();
             i--;
             if(i == 1)
