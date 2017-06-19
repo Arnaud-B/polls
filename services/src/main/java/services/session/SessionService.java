@@ -19,8 +19,7 @@ public class SessionService implements ISessionService {
 
     @Override
     public Session save(Session session) {
-        Session session_db = sessionRepository.save(session);
-        return session_db;
+        return sessionRepository.save(session);
     }
 
 

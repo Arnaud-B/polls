@@ -9,13 +9,13 @@
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Création d'un sondage</title>
-    <jsp:include page="import_css.jsp"/>
+    <jsp:include page="../import_css.jsp"/>
     <link href="<c:url value="/resources/css/theme.css" />" rel="stylesheet">
 
 </head>
 <body class="grey lighten-4">
 <main>
-    <jsp:include page="sidebar.jsp"/>
+    <jsp:include page="../sidebar.jsp"/>
     <div class="row">
         <div class="col s8 offset-s3">
             <div class="card">
@@ -23,7 +23,7 @@
                     <h3 class="blue-text">Créer un sondage</h3>
                     <button class="btn-floating red waves-effect waves-light disabled right" id="removeButton" type="button" onclick="removeAnswer()"><i class="material-icons">remove</i></button>
                     <button class="btn-floating blue waves-effect waves-light right" id="addButton" type="button" onclick="addAnswer()"><i class="material-icons">add</i></button>
-                    <form action="/create/poll/success" method="POST" style="margin-top: 50px;">
+                    <form action="/session/create/success" method="POST" style="margin-top: 50px;">
                         <div class="input-field">
                             <div class="input-field">
                                 <input placeholder="Question" id="question" name="question" type="text" class="validate">
@@ -50,7 +50,7 @@
     </div>
 </main>
 <%--<jsp:include page="footer.jsp"/>--%>
-<jsp:include page="import_js.jsp"/>
+<jsp:include page="../import_js.jsp"/>
 <script src="<c:url value="/resources/js/theme.js"/>" type="text/javascript"></script>
 <script type="text/javascript">
     var i = 1;

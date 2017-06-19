@@ -20,8 +20,7 @@ public class ResponseService implements IResponseService {
 
     @Override
     public Response save(Response response) {
-        Response response_db = responseRepository.save(response);
-        return response_db;
+        return responseRepository.save(response);
     }
 
 
