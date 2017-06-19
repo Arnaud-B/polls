@@ -23,46 +23,46 @@
                     <h3 class="blue-text">Créer un sondage</h3>
                     <button class="btn-floating red waves-effect waves-light disabled right" id="removeButton" type="button" onclick="removeAnswer()"><i class="material-icons">remove</i></button>
                     <button class="btn-floating blue waves-effect waves-light right" id="addButton" type="button" onclick="addAnswer()"><i class="material-icons">add</i></button>
-                    <form action="/create/poll" method="post" style="margin-top: 50px;">
+                    <form action="/create/poll/success" method="POST" style="margin-top: 50px;">
                         <div class="input-field">
                             <div class="input-field">
                                 <input placeholder="Question" id="question" name="question" type="text" class="validate">
                                 <label for="question">Question</label>
                             </div>
                             <div class="input-field">
-                                <input placeholder="Réponse n°1" id="answer1" type="text" name="answer1">
+                                <input placeholder="Réponse n°1" id="answer1" type="text" name="answer">
                                 <label for="answer1">Réponse n°1</label>
                             </div>
                             <div class="input-field hiddendiv" id="div2">
-                                <input placeholder="Réponse n°2" id="answer2" type="text" name="answer2">
+                                <input placeholder="Réponse n°2" id="answer2" type="text" name="answer">
                                 <label for="answer2">Réponse n°2</label>
                             </div>
                             <div class="input-field hiddendiv" id="div3">
-                                <input placeholder="Réponse n°3" id="answer3" type="text" name="answer3">
+                                <input placeholder="Réponse n°3" id="answer3" type="text" name="answer">
                                 <label for="answer3">Réponse n°3</label>
                             </div>
                             <div class="input-field hiddendiv" id="div4">
-                                <input placeholder="Réponse n°4" id="answer4" type="text" name="answer4">
+                                <input placeholder="Réponse n°4" id="answer4" type="text" name="answer">
                                 <label for="answer4">Réponse n°4</label>
                             </div>
                             <div class="input-field hiddendiv" id="div5">
-                                <input placeholder="Réponse n°5" id="answer5" type="text" name="answer5">
+                                <input placeholder="Réponse n°5" id="answer5" type="text" name="answer">
                                 <label for="answer5">Réponse n°5</label>
                             </div>
                             <div class="input-field hiddendiv" id="div6">
-                                <input placeholder="Réponse n°6" id="answer6" type="text" name="answer6">
+                                <input placeholder="Réponse n°6" id="answer6" type="text" name="answer">
                                 <label for="answer6">Réponse n°6</label>
                             </div>
                             <div class="input-field hiddendiv" id="div7">
-                                <input placeholder="Réponse n°7" id="answer7" type="text" name="answer7">
+                                <input placeholder="Réponse n°7" id="answer7" type="text" name="answer">
                                 <label for="answer7">Réponse n°7</label>
                             </div>
                             <div class="input-field hiddendiv" id="div8">
-                                <input placeholder="Réponse n°8" id="answer8" type="text" name="answer8">
+                                <input placeholder="Réponse n°8" id="answer8" type="text" name="answer">
                                 <label for="answer8">Réponse n°8</label>
                             </div>
                             <div class="input-field hiddendiv" id="div9">
-                                <input placeholder="Réponse n°9" id="answer9" type="text" name="answer9">
+                                <input placeholder="Réponse n°9" id="answer9" type="text" name="answer">
                                 <label for="answer9">Réponse n°9</label>
                             </div>
                             <div class="center-align">

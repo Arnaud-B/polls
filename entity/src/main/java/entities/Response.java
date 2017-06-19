@@ -25,6 +25,11 @@ public class Response {
     @JoinColumn(name = "session_id")
     private Session session;
 
+    public Response(Session session, String label) {
+        this.label = label;
+        this.session = session;
+    }
+
     public Integer getId() {
         return id;
     }
