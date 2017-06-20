@@ -1,4 +1,4 @@
-package controller;
+package filter;
 
 import entities.User;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,5 +19,8 @@ public class GlobalControllerAdvice {
     public void getCurrentUser(Model model) {
         User user = modelData.getUser();
         model.addAttribute("current_user", user);
+        model.addAttribute("role_user", User.ROLE_USER);
+        model.addAttribute("role_admin", User.ROLE_ADMIN);
+        model.addAttribute("role_reader", User.ROLE_READER);
     }
 }

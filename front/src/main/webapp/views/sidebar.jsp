@@ -19,7 +19,7 @@
         <li class="bold logo">
             <a href="" class="collapsible-header waves-effect waves-blue brand-logo">Polls Project</a>
         </li>
-        <c:if test="${current_user.getRole()!=1}">
+        <c:if test="${current_user.getRole()!=role_user}">
             <li class="bold">
                 <a class="collapsible-header waves-effect waves-blue" href="/stats/"><i class="small material-icons">assessment</i>Statistiques</a>
             </li>
@@ -50,7 +50,7 @@
                 </div>
             </li>
         </c:if>
-        <c:if test="${current_user.getRole()==1}">
+        <c:if test="${current_user.getRole()==role_user}">
             <li class="bold">
                 <a class="waves-effect waves-blue" href="/session/list/">
                     <i class="small material-icons" style="margin-left: -3px">view_headline</i>Voir la liste des sondages

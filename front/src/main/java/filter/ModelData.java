@@ -1,4 +1,4 @@
-package controller;
+package filter;
 
 import entities.User;
 import org.springframework.context.annotation.Scope;

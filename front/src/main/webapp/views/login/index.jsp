@@ -23,10 +23,6 @@
                             <input placeholder="Pseudo" id="username" name="username" type="text" class="validate">
                             <label for="username">Pseudo</label>
                         </div>
-                        <!--<div class="input-field">
-                            <input placeholder="Âge" id="age" type="text" class="validate" pattern="{0-9}">
-                            <label for="age">Âge</label>
-                        </div>-->
                         <button class="btn blue waves-effect waves-light" type="submit" name="action">Suivant</button>
                     </form>
                 </div>

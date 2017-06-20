@@ -2,6 +2,7 @@ package controller;
 
 import entities.User;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCrypt;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -30,7 +31,8 @@ public class UserController {
     @RequestMapping(path = "create/success/",method = RequestMethod.POST)
     public ModelAndView createSuccessView(@RequestParam String username, @RequestParam String age, @RequestParam String password){
         int int_age = Integer.parseInt(age);
-        User user = new User(username, password, int_age, User.ROLE_READER);
+        String pw_hash = BCrypt.hashpw(password, BCrypt.gensalt());
+        User user = new User(username, pw_hash, int_age, User.ROLE_READER);
         User u = userRepository.save(user);
         ModelAndView model = new ModelAndView("user/create_success");
         return model;

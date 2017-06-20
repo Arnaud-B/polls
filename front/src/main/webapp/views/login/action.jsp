@@ -33,7 +33,7 @@
                             </c:if>
                             <input hidden type="text" name="username" value="${username}" />
                             <div class="input-field">
-                                <input placeholder="password" id="password" <c:if test="${wrong_password==true}">data-error=".errorTxt" aria-invalid="error" class="error" aria-describedby="password-error"</c:if> <c:if test="${wrong_password==false}">class="validate"</c:if> name="password" type="password">
+                                <input placeholder="password" id="password" <c:if test="${wrong_password==true}">data-error=".errorTxt" aria-invalid="error" class="error" aria-describedby="password-error"</c:if> <c:if test="${wrong_password==false}">class="validate"</c:if> name="password" type="password" minlength="6">
                                 <label for="password">Password</label>
                                 <c:if test="${wrong_password==true}">
                                     <div class="errorTxt">
