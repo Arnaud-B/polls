@@ -35,7 +35,7 @@
                             </div>
                             <div id="answers">
                                 <div class="input-field">
-                                    <input placeholder="Réponse n°1" id="answer1" type="text" name="answer1">
+                                    <input placeholder="Réponse n°1" id="answer1" type="text" name="answer">
                                     <label for="answer1">Réponse n°1</label>
                                 </div>
                             </div>
@@ -43,8 +43,8 @@
 
                             </div>
                             <div class="center-align">
-                                <button class="btn blue waves-effect waves-light" type="submit">Créer</button>
-                                <button class="btn red waves-effect waves-light" type="reset">Annuler</button>
+                                <button <c:if test="${disabled_button}">disabled</c:if>class="btn blue waves-effect waves-light" type="submit">Créer</button>
+                                <button <c:if test="${disabled_button}">disabled</c:if>class="btn red waves-effect waves-light" type="reset">Annuler</button>
                             </div>
                         </div>
                     </form>
@@ -62,7 +62,7 @@
         if(i < 10){
             i++;
             var html = "<div class='input-field' id='input_"+ i +"'>" +
-                "<input placeholder='Réponse n°" + i + "' id='answer" + i + "' type='text' name='answer"+ i + "' class='validate'>" +
+                "<input placeholder='Réponse n°" + i + "' id='answer" + i + "' type='text' name='answer' class='validate'>" +
                 "<label for='answer" + i + "'>Réponse n°" + i + " </label>" +
                 "</div>";
             $(html).hide().appendTo("#answers").fadeIn(1000);

@@ -18,6 +18,25 @@ main {
 }
 */
 
+li.login {
+    bottom: 0;
+    position: absolute;
+}
+
+
+.input-field div.error {
+    position: relative;
+    top: -1rem;
+    left: 0rem;
+    margin-bottom: 1rem;
+    font-size: 0.8rem;
+    color: #FF4081;
+    -webkit-transform: translateY(0%);
+    -ms-transform: translateY(0%);
+    -o-transform: translateY(0%);
+    transform: translateY(0%);
+}
+
 .secondary-content {
     color: #2196f3;
 }

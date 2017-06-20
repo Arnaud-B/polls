@@ -9,22 +9,25 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 import repository.UserRepository;
 
+import java.util.List;
+
 /**
  * Created by Corentin on 23/05/2017.
  */
 @Controller
+@RequestMapping(path = "/user/")
 public class UserController {
 
     @Autowired
     private UserRepository userRepository;
 
-    @RequestMapping(path = "/user/create/",method = RequestMethod.GET)
+    @RequestMapping(path = "create/",method = RequestMethod.GET)
     public ModelAndView createView(){
         ModelAndView model = new ModelAndView("user/create");
         return model;
     }
 
-    @RequestMapping(path = "/user/create/success/",method = RequestMethod.POST)
+    @RequestMapping(path = "create/success/",method = RequestMethod.POST)
     public ModelAndView createSuccessView(@RequestParam String username, @RequestParam String age, @RequestParam String password){
         int int_age = Integer.parseInt(age);
         User user = new User(username, password, int_age, User.ROLE_READER);
@@ -33,9 +36,11 @@ public class UserController {
         return model;
     }
 
-    @RequestMapping(path = "/user/list/",method = RequestMethod.GET)
+    @RequestMapping(path = "list/",method = RequestMethod.GET)
     public ModelAndView listView(){
+        List<User> users = userRepository.findByRole(User.ROLE_READER);
         ModelAndView model = new ModelAndView("user/list");
+        model.addObject("users", users);
         return model;
     }
 }

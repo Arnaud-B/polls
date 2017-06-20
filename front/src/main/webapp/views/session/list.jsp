@@ -25,11 +25,10 @@
                         <c:forEach var="session" items="${sessions}">
                             <li class="collection-item">
                                 <div>
-                                    Sondage n°${session.id}
+                                    Sondage n°${session.id} - ${session.name}
                                     <a href="/session/${session.id}/" class="secondary-content">
                                         <i class="material-icons">send</i>
                                     </a>
-                                    <!--id:  ${session.id}/Name: ${session.name}/Question: ${session.question} <br/>-->
                                 </div>
                             </li>
                         </c:forEach>

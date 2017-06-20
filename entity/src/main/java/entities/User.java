@@ -1,6 +1,10 @@
 package entities;
 
+import org.springframework.security.core.GrantedAuthority;
+
 import javax.persistence.*;
+import java.util.Collection;
+import java.util.List;
 import java.util.Set;
 
 /**
@@ -38,7 +42,8 @@ public class User {
             joinColumns = @JoinColumn(name = "user_id", referencedColumnName = "id"),
             inverseJoinColumns = @JoinColumn(name = "response_id", referencedColumnName = "id")
     )
-    private Set<Response> responses;
+
+    private List<Response> responses;
 
     public User() {
     }
@@ -73,8 +78,16 @@ public class User {
         this.id = id;
     }
 
+    public Integer getRole() {
+        return role;
+    }
+
+    public void setRole(Integer role) {
+        this.role = role;
+    }
+
     public Integer getAge() {
-        return id;
+        return age;
     }
 
     public void setAge(int age) {
@@ -105,11 +118,12 @@ public class User {
         this.sessions = sessions;
     }
 
-    public Set<Response> getResponses() {
+    public List<Response> getResponses() {
         return responses;
     }
 
-    public void setResponses(Set<Response> responses) {
+    public void setResponses(List<Response> responses) {
         this.responses = responses;
     }
+
 }

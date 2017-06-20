@@ -30,6 +30,9 @@ public class UserService implements IUserService {
     }
 
     @Override
+    public List<User> findByRole(int role) { return userRepository.findByRole(role); }
+
+    @Override
     public boolean exists(Integer id) {
         boolean result = false;
         if(userRepository.exists(id)) {

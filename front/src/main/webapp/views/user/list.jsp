@@ -27,40 +27,16 @@
                                 <th>Pseudo</th>
                                 <th>Âge</th>
                                 <th>Mot de passe</th>
-                                <th></th>
                             </tr>
                         </thead>
                         <tbody>
+                            <c:forEach var="user" items="${users}">
                             <tr>
-                                <td><input class="validate" disabled="" value="Toto" type="text" title="Pseudo"></td>
-                                <td><input class="validate" disabled="" value="25" type="text" title="Âge"></td>
-                                <td><input class="validate" disabled="" value="Toto" type="password" title="Pseudo"></td>
-                                <td></td>
+                                <td>${user.getUsername()}</td>
+                                <td>${user.getAge()}</td>
+                                <td>${user.getPassword()}</td>
                             </tr>
-                            <tr>
-                                <td><input class="validate" disabled="" value="Toto" type="text" title="Pseudo"></td>
-                                <td><input class="validate" disabled="" value="25" type="text" title="Âge"></td>
-                                <td><input class="validate" disabled="" value="Toto" type="password" title="Pseudo"></td>
-                                <td></td>
-                            </tr>
-                            <tr>
-                                <td><input class="validate" disabled="" value="Toto" type="text" title="Pseudo"></td>
-                                <td><input class="validate" disabled="" value="25" type="text" title="Âge"></td>
-                                <td><input class="validate" disabled="" value="Toto" type="password" title="Pseudo"></td>
-                                <td></td>
-                            </tr>
-                            <tr>
-                                <td><input class="validate" disabled="" value="Toto" type="text" title="Pseudo"></td>
-                                <td><input class="validate" disabled="" value="25" type="text" title="Âge"></td>
-                                <td><input class="validate" disabled="" value="Toto" type="password" title="Pseudo"></td>
-                                <td></td>
-                            </tr>
-                            <tr>
-                                <td><input class="validate" disabled="" value="Toto" type="text" title="Pseudo"></td>
-                                <td><input class="validate" disabled="" value="25" type="text" title="Âge"></td>
-                                <td><input class="validate" disabled="" value="Toto" type="password" title="Pseudo"></td>
-                                <td></td>
-                            </tr>
+                            </c:forEach>
                         </tbody>
                     </table>
                 </div>
