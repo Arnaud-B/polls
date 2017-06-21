@@ -38,6 +38,10 @@ public class SessionService implements ISessionService {
         return sessionRepository.findAll();
     }
 
+    @Override
+    public List<Session> findAllByResponseUserIsNull() {
+        return sessionRepository.findDistinctByResponses_UsersIsNull();
+    }
 
     @Override
     public boolean exists(Integer id) {

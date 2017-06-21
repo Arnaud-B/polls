@@ -12,6 +12,7 @@ public interface SessionRepository extends CrudRepository<Session, Integer> {
 
     Session findById(Integer id);
     List<Session> findAll();
+    List<Session> findDistinctByResponses_UsersIsNull();
     boolean exists(Integer id);
     Session save(Session session);
     void deleteSessionById(int id);

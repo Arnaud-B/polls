@@ -29,31 +29,12 @@
                         Histogrammes des réponses par tranche d'âge
                     </h4>
                     <div class="row">
+                        <c:forEach var="response" items="${responses}">
                         <div class="col s4">
-                            <h5 class="center-align">Réponse n°1</h5>
-                            <canvas id="answer1"></canvas>
+                            <h5 class="center-align">Réponse n°${response.id}</h5>
+                            <canvas id="answer${response.id}"></canvas>
                         </div>
-                        <div class="col s4">
-                            <h5 class="center-align">Réponse n°2</h5>
-                            <canvas id="answer2"></canvas>
-                        </div>
-                        <div class="col s4">
-                            <h5 class="center-align">Réponse n°3</h5>
-                            <canvas id="answer3"></canvas>
-                        </div>
-                        <div class="divider col s12" style="margin-top: 20px; margin-bottom: 20px;"></div>
-                        <div class="col s4">
-                            <h5 class="center-align">Réponse n°4</h5>
-                            <canvas id="answer4"></canvas>
-                        </div>
-                        <div class="col s4">
-                            <h5 class="center-align">Réponse n°5</h5>
-                            <canvas id="answer5"></canvas>
-                        </div>
-                        <div class="col s4">
-                            <h5 class="center-align">Réponse n°6</h5>
-                            <canvas id="answer6"></canvas>
-                        </div>
+                        </c:forEach>
                     </div>
                 </div>
             </div>
@@ -65,13 +46,16 @@
 <script src="<c:url value="/resources/js/theme.js"/>" type="text/javascript"></script>
 <script src="<c:url value="/resources/js/Chart.bundle.min.js"/> " type="text/javascript"></script>
 <script>
+    var age_group = ${age_group};
+    var age_group_per_response = ${age_group_per_response};
+
+    var responses = ${responses_json};
     var ctx = document.getElementById("myChart");
-    var answer1 = document.getElementById("answer1");
-    var answer2 = document.getElementById("answer2");
-    var answer3 = document.getElementById("answer3");
-    var answer4 = document.getElementById("answer4");
-    var answer5 = document.getElementById("answer5");
-    var answer6 = document.getElementById("answer6");
+    var answers = new Array();
+    for(i=0; i<responses.length; i++) {
+        answers[i] = document.getElementById("answer"+(i+1));
+    }
+
 
     var labels = ["-10", "10-15", "15-20", "20-25", "25-30", "30-35", "35-40", "40-45", "45-50", "50-55", "55-60", "60-65", "65-70", "70-75", "75-80", "80-85", "85-90"];
     var backgroundColor = "#78909c";
@@ -92,14 +76,13 @@
         "#212121"
     ];
     var borderColor = 'white';
-    var dataPie = [12, 19, 3, 5, 2, 3];
     var myChart = new Chart(ctx, {
         type: 'bar',
         data: {
             labels: labels,
             datasets: [{
                 label: "Nombres de réponses par tranche d'âge",
-                data: dataPie,
+                data: age_group,
                 backgroundColor: backgroundColor,
                 borderColor: borderColor,
                 borderWidth: 1
@@ -126,84 +109,24 @@
         }
     });
 
-    var answer1Pie = new Chart(answer1, {
-        type: 'pie',
-        data: {
-            labels: labels,
-            datasets: [{
-                label: "Nombres de réponse par tranche d'âge pour la réponse n°1",
-                data: dataPie,
-                backgroundColor: backgroundColorPie,
-                borderColor: borderColor,
-                borderWidth: 1
-            }]
-        }
-    });
-    var answer2Pie = new Chart(answer2, {
-        type: 'pie',
-        data: {
-            labels: labels,
-            datasets: [{
-                label: "Nombres de réponse par tranche d'âge pour la réponse n°2",
-                data: dataPie,
-                backgroundColor: backgroundColorPie,
-                borderColor: borderColor,
-                borderWidth: 1
-            }]
-        }
-    });
-    var answer3Pie = new Chart(answer3, {
-        type: 'pie',
-        data: {
-            labels: labels,
-            datasets: [{
-                label: "Nombres de réponse par tranche d'âge pour la réponse n°3",
-                data: dataPie,
-                backgroundColor: backgroundColorPie,
-                borderColor: borderColor,
-                borderWidth: 1
-            }]
-        }
-    });
-    var answer4Pie = new Chart(answer4, {
-        type: 'pie',
-        data: {
-            labels: labels,
-            datasets: [{
-                label: "Nombres de réponse par tranche d'âge pour la réponse n°4",
-                data: dataPie,
-                backgroundColor: backgroundColorPie,
-                borderColor: borderColor,
-                borderWidth: 1
-            }]
-        }
-    });
-    var answer5Pie = new Chart(answer5, {
-        type: 'pie',
-        data: {
-            labels: labels,
-            datasets: [{
-                label: "Nombres de réponse par tranche d'âge pour la réponse n°5",
-                data: dataPie,
-                backgroundColor: backgroundColorPie,
-                borderColor: borderColor,
-                borderWidth: 1
-            }]
-        }
-    });
-    var answer6Pie = new Chart(answer6, {
-        type: 'pie',
-        data: {
-            labels: labels,
-            datasets: [{
-                label: "Nombres de réponse par tranche d'âge pour la réponse n°6",
-                data: dataPie,
-                backgroundColor: backgroundColorPie,
-                borderColor: borderColor,
-                borderWidth: 1
-            }]
-        }
-    });
+    var prefix = "answer"
+    var end = "Pie";
+    for(j=0; j<answers.length; j++) {
+        var index = j+1;
+        this[prefix+index+end] = new Chart(answers[j], {
+            type: 'pie',
+            data: {
+                labels: labels,
+                datasets: [{
+                    label: "Nombres de réponse par tranche d'âge pour la réponse n°"+index,
+                    data: age_group_per_response[j],
+                    backgroundColor: backgroundColorPie,
+                    borderColor: borderColor,
+                    borderWidth: 1
+                }]
+            }
+        });
+    }
 </script>
 </body>
 </html>

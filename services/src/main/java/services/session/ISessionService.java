@@ -11,6 +11,7 @@ public interface ISessionService {
 
     Session findById(Integer id);
     List<Session> findAll();
+    List<Session> findAllByResponseUserIsNull();
     boolean exists(Integer id);
     Session save(Session session);
     void deleteSessionById(Integer id);

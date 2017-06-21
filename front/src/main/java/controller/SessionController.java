@@ -75,12 +75,20 @@ public class SessionController {
         List<User> users = new ArrayList<User>();
         users.add(user);
         List<Response> user_responses = responseService.findByUsers(users);
-        this.already_answered = user_responses.get(0).getSession().getId() == Integer.parseInt(session_id);
+        this.already_answered = false;
+        // Check if the current user has already answered this session
+        if(user_responses.size() > 0) {
+            for (Response user_response : user_responses) {
+                if (user_response.getSession().getId() == Integer.parseInt(session_id)) {
+                    this.already_answered = true;
+                    break;
+                }
+            }
+        }
         if (user != null && !this.already_answered) {
             for (String response_id : responses_id)
             {
-                int id = Integer.parseInt(response_id);
-                Response response = responseService.findById(id);
+                Response response = responseService.findById(Integer.parseInt(response_id));
                 user_responses.add(response);
             }
             user.setResponses(user_responses);

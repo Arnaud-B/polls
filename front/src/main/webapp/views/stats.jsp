@@ -22,7 +22,7 @@
                 <div class="card-content">
                     <h3 class="blue-text">Liste des sondages sans réponses</h3>
                     <ul class="collection">
-                        <c:forEach var="session" items="${sessions}">
+                        <c:forEach var="session" items="${sessions_no_answer}">
                             <li class="collection-item">
                                 <div>
                                     Sondage n°${session.id} - ${session.name}
@@ -45,13 +45,13 @@
                     <blockquote>
                         Choisissez un sondage pour afficher ses histogrammes.
                     </blockquote>
-                    <form action="/stats" method="get" id="poll">
+                    <form action="/stats/form/" method="POST" id="poll">
                         <div class="input-field">
                             <select name="id" form="poll">
                                 <option value="" disabled selected>Sélectionnez un sondage</option>
-                                <option class="blue-text" value="1">Sondage n°1</option>
-                                <option class="blue-text" value="2">Sondage n°2</option>
-                                <option class="blue-text" value="3">Sondage n°3</option>
+                                <c:forEach var="session" items="${sessions}">
+                                    <option class="blue-text" value="${session.id}">Sondage n°${session.id}</option>
+                                </c:forEach>
                             </select>
                             <label>Sondage</label>
                             <button class="btn blue waves-effect waves-light" type="submit">Suivant</button>
