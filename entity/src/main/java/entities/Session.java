@@ -2,6 +2,7 @@ package entities;
 
 import javax.persistence.*;
 import java.sql.Date;
+import java.util.List;
 import java.util.Set;
 
 /**
@@ -33,7 +34,7 @@ public class Session {
     private User user;
 
     @OneToMany(mappedBy = "session", cascade = CascadeType.ALL)
-    private Set<Response> responses;
+    private List<Response> responses;
 
     public Integer getId() {
         return id;
@@ -83,11 +84,11 @@ public class Session {
         this.user = user;
     }
 
-    public Set<Response> getResponses() {
+    public List<Response> getResponses() {
         return responses;
     }
 
-    public void setResponses(Set<Response> responses) {
+    public void setResponses(List<Response> responses) {
         this.responses = responses;
     }
 }

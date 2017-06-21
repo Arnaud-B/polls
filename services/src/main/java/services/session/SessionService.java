@@ -38,6 +38,7 @@ public class SessionService implements ISessionService {
         return sessionRepository.findAll();
     }
 
+
     @Override
     public boolean exists(Integer id) {
         boolean result = false;

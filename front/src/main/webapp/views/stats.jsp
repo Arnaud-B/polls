@@ -22,10 +22,16 @@
                 <div class="card-content">
                     <h3 class="blue-text">Liste des sondages sans réponses</h3>
                     <ul class="collection">
-                        <li class="collection-item"><div>Sondage n°1<a href="/poll/1" class="secondary-content"><i class="material-icons">send</i></a></div></li>
-                        <li class="collection-item"><div>Sondage n°2<a href="/poll/2" class="secondary-content"><i class="material-icons">send</i></a></div></li>
-                        <li class="collection-item"><div>Sondage n°3<a href="/poll/3" class="secondary-content"><i class="material-icons">send</i></a></div></li>
-                        <li class="collection-item"><div>Sondage n°4<a href="/poll/4" class="secondary-content"><i class="material-icons">send</i></a></div></li>
+                        <c:forEach var="session" items="${sessions}">
+                            <li class="collection-item">
+                                <div>
+                                    Sondage n°${session.id} - ${session.name}
+                                    <a href="/session/${session.id}/" class="secondary-content">
+                                        <i class="material-icons">send</i>
+                                    </a>
+                                </div>
+                            </li>
+                        </c:forEach>
                     </ul>
                 </div>
             </div>

@@ -20,7 +20,16 @@
         <div class="col s8 offset-s3">
             <div class="card">
                 <div class="card-content">
-                    <div class="alert alert-success">Votre réponse a été ajouté</div>
+                    <div class="alert alert-success">
+                    <c:choose>
+                        <c:when test="${already_answered == false}">
+                            Votre réponse a été ajouté
+                        </c:when>
+                        <c:otherwise>
+                            Vous ne pouvez pas répondre plus d'une fois à la même question
+                        </c:otherwise>
+                    </c:choose>
+                    </div>
                 </div>
             </div>
         </div>

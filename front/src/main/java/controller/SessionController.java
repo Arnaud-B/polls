@@ -32,6 +32,9 @@ public class SessionController {
     @Autowired
     private ModelData modelData;
 
+    private Boolean already_answered;
+
+
     @RequestMapping(path = "create/",method = RequestMethod.GET)
     @ResponseBody
     public ModelAndView sessionCreateView(){
@@ -67,21 +70,27 @@ public class SessionController {
     }
 
     @RequestMapping(path = "answer/success/",method = RequestMethod.POST)
-    public ModelAndView answerSuccessView(@RequestParam String[] responses_id){
+    public ModelAndView answerSuccessView(@RequestParam String[] responses_id, @RequestParam String session_id){
         User user = modelData.getUser();
-        List<Response> response_list = new ArrayList<Response>();
-        if(user != null) {
+        List<User> users = new ArrayList<User>();
+        users.add(user);
+        List<Response> user_responses = responseService.findByUsers(users);
+        this.already_answered = user_responses.get(0).getSession().getId() == Integer.parseInt(session_id);
+        if (user != null && !this.already_answered) {
             for (String response_id : responses_id)
             {
-                Response response = responseService.findById(Integer.parseInt(response_id));
-                response_list.add(response);
+                int id = Integer.parseInt(response_id);
+                Response response = responseService.findById(id);
+                user_responses.add(response);
             }
-            user.setResponses(response_list);
+            user.setResponses(user_responses);
             userService.save(user);
         }
         ModelAndView model = new ModelAndView("session/answer_success");
+        model.addObject("already_answered", this.already_answered);
         return model;
     }
+
 
     @RequestMapping(path = "list/",method = RequestMethod.GET)
     public ModelAndView listView(){

@@ -24,6 +24,7 @@
                         <h3 class="blue-text">Sondage n°${session.id}</h3>
 
                         Name: ${session.name}/Question: ${session.question} <br/>
+                        <input type="hidden" name="session_id" value="${session.id}" />
                         <c:forEach var="response" items="${responses}">
                             <div>
                                 <input type="checkbox" value="${response.id}" id="response_${response.id}" name="responses_id" />

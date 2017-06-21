@@ -1,6 +1,7 @@
 package services.response;
 
 import entities.Response;
+import entities.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import repository.ResponseRepository;
@@ -26,6 +27,11 @@ public class ResponseService implements IResponseService {
     @Override
     public List<Response> findBySession_Id(Integer id) {
         return responseRepository.findBySession_Id(id);
+    }
+
+    @Override
+    public List<Response> findByUsers(List<User> users) {
+        return responseRepository.findByUsersIn(users);
     }
 
     @Override

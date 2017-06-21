@@ -1,9 +1,6 @@
 package entities;
 
-import org.springframework.security.core.GrantedAuthority;
-
 import javax.persistence.*;
-import java.util.Collection;
 import java.util.List;
 import java.util.Set;
 
