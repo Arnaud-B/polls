@@ -5,26 +5,33 @@ import entities.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import repository.ResponseRepository;
-
 import java.util.List;
 
 /**
  * Created by nono on 25/05/2017.
  */
-@Service
+@Service("responseService")
 public class ResponseService implements IResponseService {
 
-    @Autowired
     private ResponseRepository responseRepository;
 
-
-    @Override
-    public Response save(Response response) {
-        return responseRepository.save(response);
+    @Autowired
+    public ResponseService(ResponseRepository responseRepository) {
+        this.responseRepository = responseRepository;
     }
 
     @Override
-    public List<Response> findBySession_Id(Integer id) {
+    public List<Response> findAll() {
+        return responseRepository.findAll();
+    }
+
+    @Override
+    public Response findOne(Integer id) {
+        return responseRepository.findOne(id);
+    }
+
+    @Override
+    public List<Response> findBySessionId(Integer id) {
         return responseRepository.findBySession_Id(id);
     }
 
@@ -34,26 +41,21 @@ public class ResponseService implements IResponseService {
     }
 
     @Override
-    public void deleteResponseById(Integer id) {
-        responseRepository.deleteResponseById(id);
-    }
-
-    @Override
-    public Response findById(Integer id) {
-        return responseRepository.findOne(id);
-    }
-
-    @Override
-    public List<Response> findAll() {
-        return responseRepository.findAll();
-    }
-
-    @Override
     public boolean exists(Integer id) {
         boolean result = false;
         if(responseRepository.exists(id)) {
             result = true;
         }
         return result;
+    }
+
+    @Override
+    public Response save(Response response) {
+        return responseRepository.save(response);
+    }
+
+    @Override
+    public void delete(Integer id) {
+        responseRepository.delete(id);
     }
 }

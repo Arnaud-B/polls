@@ -1,7 +1,6 @@
 package services.session;
 
 import entities.Session;
-
 import java.util.List;
 
 /**
@@ -9,11 +8,16 @@ import java.util.List;
  */
 public interface ISessionService {
 
-    Session findById(Integer id);
     List<Session> findAll();
+
     List<Session> findAllByResponseUserIsNull();
+
+    Session findOne(Integer id);
+
     boolean exists(Integer id);
+
     Session save(Session session);
-    void deleteSessionById(Integer id);
+
+    void delete(Integer id);
 
 }

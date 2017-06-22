@@ -11,11 +11,18 @@ import java.util.List;
  */
 public interface UserRepository extends CrudRepository<User, Integer> {
 
-    User findByUsername(String username);
     List<User> findAll();
+
     List<User> findByRolesIn(List<Role> roles);
+
+    User findOne(Integer id);
+
+    User findByUsername(String username);
+
     boolean exists(Integer id);
+
     User save(User user);
-    void deleteUserById(int id);
+
+    void delete(Integer id);
 
 }

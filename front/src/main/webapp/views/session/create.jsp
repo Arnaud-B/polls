@@ -30,6 +30,14 @@
                                 <label for="name">Nom</label>
                             </div>
                             <div class="input-field">
+                                <input placeholder="Date de début" type="date" class="datepicker" id="start-date" name="start_date">
+                                <label for="start-date">Date de début</label>
+                            </div>
+                            <div class="input-field">
+                                <input placeholder="Date de fin" type="date" class="datepicker" id="end-date" name="end_date">
+                                <label for="start-date">Date de fin</label>
+                            </div>
+                            <div class="input-field">
                                 <input placeholder="Question" id="question" name="question" type="text" class="validate">
                                 <label for="question">Question</label>
                             </div>
@@ -43,8 +51,8 @@
 
                             </div>
                             <div class="center-align">
-                                <button <c:if test="${disabled_button}">disabled</c:if>class="btn blue waves-effect waves-light" type="submit">Créer</button>
-                                <button <c:if test="${disabled_button}">disabled</c:if>class="btn red waves-effect waves-light" type="reset">Annuler</button>
+                                <button <c:if test="${disabled_button}">disabled</c:if> class="btn blue waves-effect waves-light" type="submit">Créer</button>
+                                <button <c:if test="${disabled_button}">disabled</c:if> class="btn red waves-effect waves-light" type="reset">Annuler</button>
                             </div>
                         </div>
                     </form>
@@ -80,6 +88,23 @@
                 $("#removeButton").addClass("disabled");
         }
     }
+    $('.datepicker').pickadate({
+        selectMonths: true, // Creates a dropdown to control month
+        selectYears: 15, // Creates a dropdown of 15 years to control year
+        labelMonthNext: 'Mois prochain',
+        labelMonthPrev: 'Mois dernier',
+        labelMonthSelect: 'Sélection du mois',
+        labelYearSelect: 'Sélection de l\'année',
+        monthsFull: ['Janvier', 'Février', 'Mars', 'Avril', 'Mai', 'Juin', 'Juillet', 'Août', 'Septembre', 'Octobre', 'Novembre', 'Décembre'],
+        monthsShort: ['Jan', 'Fév', 'Mar', 'Avr', 'Mai', 'Juin', 'Juil', 'Août', 'Sept', 'Oct', 'Nov', 'Déc'],
+        weekdaysFull: ['Dimanche', 'Lundi', 'Mardi', 'Mercredi', 'Jeudi', 'Vendredi', 'Samedi'],
+        weekdaysShort: ['Dim', 'Lun', 'Mar', 'Mer', 'Jeu', 'Ven', 'Sam' ],
+        weekdaysLetter: ['D', 'L', 'Mar', 'Mer', 'J', 'V', 'S' ],
+        today: 'Aujourd\'hui',
+        clear: 'Effacer',
+        close: 'Fermer',
+        format: 'dd/mm/yyyy'
+    });
 </script>
 </body>
 </html>

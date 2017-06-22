@@ -3,7 +3,6 @@ package controller;
 import entities.Response;
 import entities.Session;
 import entities.User;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -11,6 +10,7 @@ import org.springframework.web.servlet.ModelAndView;
 import services.response.ResponseService;
 import services.session.SessionService;
 
+import javax.annotation.Resource;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -18,13 +18,14 @@ import java.util.List;
  * Created by Corentin on 24/05/2017.
  */
 @Controller
-@Secured({"ROLE_ADMIN", "ROLE_READER"})
+@Secured({"ROLE_ADMIN", "ROLE_REDACTOR"})
 @RequestMapping(path = "/stats/")
 public class StatsController {
 
-    @Autowired
+    @Resource(name = "sessionService")
     private SessionService sessionService;
-    @Autowired
+
+    @Resource(name = "responseService")
     private ResponseService responseService;
 
     @RequestMapping(path = "", method = RequestMethod.GET)
@@ -57,7 +58,7 @@ public class StatsController {
     @ResponseBody
     public ModelAndView statsViewGetById(@PathVariable int id){
         ModelAndView model = new ModelAndView("histo");
-        List<Response> responses = responseService.findBySession_Id(id);
+        List<Response> responses = responseService.findBySessionId(id);
         model.addObject("responses", responses);
 
         /*************** DATA for Js histo ***************************/
@@ -92,7 +93,7 @@ public class StatsController {
         return model;
     }
 
-    public static String toJavascriptArray(String[] arr){
+    private static String toJavascriptArray(String[] arr){
         StringBuffer sb = new StringBuffer();
         sb.append("[");
         for(int i=0; i<arr.length; i++){
@@ -105,8 +106,7 @@ public class StatsController {
         return sb.toString();
     }
 
-
-    public static String toIntJavascriptArray(int[] arr){
+    private static String toIntJavascriptArray(int[] arr){
         StringBuffer sb = new StringBuffer();
         sb.append("[");
         for(int i=0; i<arr.length; i++){
@@ -119,8 +119,7 @@ public class StatsController {
         return sb.toString();
     }
 
-
-    public static String to2IntJavascriptArray(int[][] arr){
+    private static String to2IntJavascriptArray(int[][] arr){
         StringBuffer sb = new StringBuffer();
         sb.append("[");
         for(int i=0; i<arr.length; i++){
@@ -139,6 +138,4 @@ public class StatsController {
         sb.append("]");
         return sb.toString();
     }
-
-
 }

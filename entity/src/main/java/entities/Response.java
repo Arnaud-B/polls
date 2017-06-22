@@ -7,7 +7,7 @@ import java.util.Set;
  * Created by nono on 23/05/2017.
  */
 @Entity
-@Table(name = "response")
+@Table(name = "responses")
 public class Response {
 
     @Id
@@ -25,13 +25,11 @@ public class Response {
     @JoinColumn(name = "session_id")
     private Session session;
 
+    public Response() {}
+
     public Response(Session session, String label) {
         this.label = label;
         this.session = session;
-    }
-
-    public Response() {
-
     }
 
     public Integer getId() {

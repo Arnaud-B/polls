@@ -4,15 +4,21 @@ import entities.Response;
 import entities.Session;
 import entities.User;
 import filter.ModelData;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 import services.response.ResponseService;
 import services.session.SessionService;
 import services.user.UserService;
 
+import javax.annotation.Resource;
+import java.sql.Date;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -21,22 +27,23 @@ import java.util.List;
  */
 @Controller
 @RequestMapping(path = "/session/")
-@Secured({"ROLE_ADMIN","ROLE_READER", "ROLE_USER"})
+@Secured({"ROLE_ADMIN", "ROLE_REDACTOR", "ROLE_USER"})
 public class SessionController {
 
-    @Autowired
+    @Resource(name = "sessionService")
     private SessionService sessionService;
-    @Autowired
+
+    @Resource(name = "responseService")
     private ResponseService responseService;
-    @Autowired
+
+    @Resource(name = "userService")
     private UserService userService;
-    @Autowired
+
+    @Resource(name = "modelData")
     private ModelData modelData;
 
-    private Boolean already_answered;
 
-
-    @Secured({"ROLE_ADMIN","ROLE_READER"})
+    @Secured({"ROLE_ADMIN", "ROLE_REDACTOR"})
     @RequestMapping(path = "create/",method = RequestMethod.GET)
     public ModelAndView sessionCreateView(){
         User user = modelData.getUser();
@@ -49,15 +56,18 @@ public class SessionController {
         return model;
     }
 
-    @Secured({"ROLE_ADMIN","ROLE_READER"})
+    @Secured({"ROLE_ADMIN", "ROLE_REDACTOR"})
     @RequestMapping(path = "create/success/",method = RequestMethod.POST)
-    public ModelAndView createSuccessView(@RequestParam String question, @RequestParam String name, @RequestParam String[] answer){
+    public ModelAndView createSuccessView(@RequestParam String name, @RequestParam String start_date, @RequestParam String end_date, @RequestParam String question, @RequestParam String[] answer) throws ParseException {
         User user = modelData.getUser();
         if (user != null) {
+            SimpleDateFormat formatDate = new SimpleDateFormat("dd/MM/yyyy");
             Session session = new Session();
-            session.setQuestion(question);
-            session.setName(name);
             session.setUser(user);
+            session.setName(name);
+            session.setStartDate(new Date(formatDate.parse(start_date).getTime()));
+            session.setEndDate(new Date(formatDate.parse(end_date).getTime()));
+            session.setQuestion(question);
             Session s = sessionService.save(session);
             for (int i = 0; i < answer.length; i++) {
                 if (answer[i] != "") {
@@ -70,34 +80,34 @@ public class SessionController {
         return model;
     }
 
-    @Secured({"ROLE_ADMIN","ROLE_READER"})
+    @Secured({"ROLE_ADMIN", "ROLE_REDACTOR"})
     @RequestMapping(path = "answer/success/",method = RequestMethod.POST)
     public ModelAndView answerSuccessView(@RequestParam String[] responses_id, @RequestParam String session_id){
         User user = modelData.getUser();
         List<User> users = new ArrayList<User>();
         users.add(user);
         List<Response> user_responses = responseService.findByUsers(users);
-        this.already_answered = false;
+        Boolean already_answered = false;
         // Check if the current user has already answered this session
         if(user_responses.size() > 0) {
             for (Response user_response : user_responses) {
                 if (user_response.getSession().getId() == Integer.parseInt(session_id)) {
-                    this.already_answered = true;
+                    already_answered = true;
                     break;
                 }
             }
         }
-        if (user != null && !this.already_answered) {
+        if (user != null && !already_answered) {
             for (String response_id : responses_id)
             {
-                Response response = responseService.findById(Integer.parseInt(response_id));
+                Response response = responseService.findOne(Integer.parseInt(response_id));
                 user_responses.add(response);
             }
             user.setResponses(user_responses);
             userService.save(user);
         }
         ModelAndView model = new ModelAndView("session/answer_success");
-        model.addObject("already_answered", this.already_answered);
+        model.addObject("already_answered", already_answered);
         return model;
     }
 
@@ -112,8 +122,8 @@ public class SessionController {
     @RequestMapping(path = "{id}/",method = RequestMethod.GET)
     public ModelAndView detailView(@PathVariable(value="id") String str_id){
         int id = Integer.parseInt(str_id);
-        Session session = sessionService.findById(id);
-        List<Response> responses = responseService.findBySession_Id(id);
+        Session session = sessionService.findOne(id);
+        List<Response> responses = responseService.findBySessionId(id);
         ModelAndView model = new ModelAndView("session/detail");
         model.addObject("session", session);
         model.addObject("responses", responses);

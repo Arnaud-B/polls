@@ -14,8 +14,12 @@ import services.user.UserService;
 @Component
 public class AuthClientService implements UserDetailsService {
 
-    @Autowired
     private UserService userService;
+
+    @Autowired
+    public AuthClientService(UserService userService) {
+        this.userService = userService;
+    }
 
     @Override
     public UserDetails loadUserByUsername(String s) throws UsernameNotFoundException {

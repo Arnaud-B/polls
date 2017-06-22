@@ -9,7 +9,7 @@ import java.util.Set;
  * Created by nono on 23/05/2017.
  */
 @Entity
-@Table(name = "session")
+@Table(name = "sessions")
 public class Session {
 
     @Id
@@ -23,11 +23,11 @@ public class Session {
     @Column
     private String question;
 
-    @Column
-    private Date start_date;
+    @Column(name = "start_date")
+    private Date startDate;
 
-    @Column
-    private Date end_date;
+    @Column(name = "end_date")
+    private Date endDate;
 
     @ManyToOne
     @JoinColumn(name = "user_id")
@@ -60,20 +60,20 @@ public class Session {
         this.question = question;
     }
 
-    public Date getStart_date() {
-        return start_date;
+    public Date getStartDate() {
+        return startDate;
     }
 
-    public void setStart_date(Date start_date) {
-        this.start_date = start_date;
+    public void setStartDate(Date startDate) {
+        this.startDate = startDate;
     }
 
-    public Date getEnd_date() {
-        return end_date;
+    public Date getEndDate() {
+        return endDate;
     }
 
-    public void setEnd_date(Date end_date) {
-        this.end_date = end_date;
+    public void setEndDate(Date endDate) {
+        this.endDate = endDate;
     }
 
     public User getUser() {

@@ -8,32 +8,35 @@ import javax.persistence.*;
  * Created by Corentin on 20/06/2017.
  */
 @Entity
-@Table(name = "role")
-public class Role  implements GrantedAuthority{
+@Table(name = "roles")
+public class Role implements GrantedAuthority {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer roleId;
-    private String roleName;
+    @Column
+    private Integer id;
 
-    public String getRoleName() {
-        return this.roleName;
+    @Column
+    private String name;
+
+    public Integer getId() {
+        return this.id;
     }
 
-    public void setRoleName(String roleName) {
-        this.roleName = roleName;
+    public void setId(Integer id) {
+        this.id = id;
     }
 
-    public Integer getRoleId() {
-        return this.roleId;
+    public String getName() {
+        return this.name;
     }
 
-    public void setRoleId(Integer roleId) {
-        this.roleId = roleId;
+    public void setName(String name) {
+        this.name = name;
     }
 
     @Override
     public String getAuthority() {
-        return this.roleName;
+        return this.name;
     }
 }

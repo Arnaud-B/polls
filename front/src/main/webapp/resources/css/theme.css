@@ -48,3 +48,12 @@ li > span {
 blockquote {
     border-left: 5px solid #2196f3;
 }
+.picker__frame {
+    max-width: 400px;
+    width: auto;
+}
+.picker__day--selected,
+.picker__day--selected:hover,
+.picker--focused .picker__day--selected {
+    border-radius: 0;
+}

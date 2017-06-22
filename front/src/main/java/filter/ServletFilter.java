@@ -9,6 +9,7 @@ import java.io.IOException;
  */
 @WebFilter(value = "/servlet/*")
 public class ServletFilter implements javax.servlet.Filter  {
+
     @Override
     public void init(FilterConfig filterConfig) throws ServletException {
         System.out.println("Init Servlet filter");

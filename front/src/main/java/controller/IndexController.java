@@ -10,7 +10,7 @@ import org.springframework.web.servlet.ModelAndView;
  * Created by Nico on 09/02/2016.
  */
 @Controller
-@Secured({"ROLE_ADMIN","ROLE_READER", "ROLE_USER"})
+@Secured({"ROLE_ADMIN", "ROLE_REDACTOR", "ROLE_USER"})
 public class IndexController {
 
     @RequestMapping(path = "/",method = RequestMethod.GET)

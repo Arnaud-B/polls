@@ -11,9 +11,15 @@ import java.util.List;
 public interface RoleRepository  extends CrudRepository<Role, Integer> {
 
     List<Role> findAll();
+
+    Role findOne(Integer id);
+
+    Role findByName(String name);
+
     boolean exists(Integer id);
+
     Role save(Role role);
-    void deleteRoleByRoleId(int id);
-    Role findRoleByRoleId(Integer id);
+
+    void delete(Integer id);
 
 }

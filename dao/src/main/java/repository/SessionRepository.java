@@ -10,11 +10,16 @@ import java.util.List;
  */
 public interface SessionRepository extends CrudRepository<Session, Integer> {
 
-    Session findById(Integer id);
     List<Session> findAll();
+
     List<Session> findDistinctByResponses_UsersIsNull();
+
+    Session findOne(Integer id);
+
     boolean exists(Integer id);
+
     Session save(Session session);
-    void deleteSessionById(int id);
+
+    void delete(Integer id);
 
 }
