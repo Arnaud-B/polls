@@ -4,6 +4,7 @@ import entities.Response;
 import entities.Session;
 import entities.User;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
@@ -17,6 +18,7 @@ import java.util.List;
  * Created by Corentin on 24/05/2017.
  */
 @Controller
+@Secured({"ROLE_ADMIN", "ROLE_READER"})
 @RequestMapping(path = "/stats/")
 public class StatsController {
 

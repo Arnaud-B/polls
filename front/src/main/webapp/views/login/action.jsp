@@ -1,6 +1,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ page import="entities.User"%>
 <!doctype html>
 <html lang="fr">
 <head>
@@ -18,31 +19,27 @@
                 <div class="card z-depth-3">
                     <div class="card-content">
                         <span class="card-title black-text">Polls</span>
-                        <form action="/login/action/success/" method="post">
+                        <form id="form" action="<c:url value='/login.do'/>" method="POST">
+                            <%User user = ((User)request.getAttribute("user"));
+                            String error  = (String) request.getAttribute("error");%>
                             <c:if test="${user_exist==false}">
                                 <div class="input-field">
                                     <input placeholder="Âge" id="age" name="age" type="text" class="validate" pattern="{0-9}">
                                     <label for="age">Âge</label>
                                 </div>
+                                <input hidden type="password" name="password" value="" />
+                                <input hidden type="text" name="username" value="${username}">
                             </c:if>
-                            <c:if test="${user_exist!=false}">
+                            <%if(user != null){%>
+                            <input hidden type="text" name="username" value="<%=user.getUsername()%>" />
+                            <%if(user.getRoles() != null && user.getRoles().get(0).getRoleId() > User.ROLE_USER){%>
                                 <div class="input-field">
-                                    <input hidden placeholder="Âge" id="age" name="age" type="text" class="validate" pattern="{0-9}" value="0">
-                                    <label hidden for="age">Âge</label>
+                                    <input placeholder="password" id="password" name="password" type="password" class="validate">
+                                    <label for="password">Password</label>
                                 </div>
-                            </c:if>
-                            <input hidden type="text" name="username" value="${username}" />
-                            <div class="input-field">
-                                <input placeholder="password" id="password" <c:if test="${wrong_password==true}">data-error=".errorTxt" aria-invalid="error" class="error" aria-describedby="password-error"</c:if> <c:if test="${wrong_password==false}">class="validate"</c:if> name="password" type="password" minlength="6">
-                                <label for="password">Password</label>
-                                <c:if test="${wrong_password==true}">
-                                    <div class="errorTxt">
-                                        <div id="password-error" class="error">
-                                            Enter your password
-                                        </div>
-                                    </div>
-                                </c:if>
-                            </div>
+                                <input hidden type="text" name="age" value="<%=user.getAge()%>" />
+                               <%}
+                            }%>
                             <button class="btn blue waves-effect waves-light" type="submit" name="action">Suivant</button>
                         </form>
                     </div>

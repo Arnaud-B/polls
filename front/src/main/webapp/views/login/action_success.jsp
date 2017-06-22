@@ -10,7 +10,7 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Création d'un sondage</title>
     <jsp:include page="../import_css.jsp"/>
-    <!--<link href="<c:url value="../../resources/css/theme.css" />" rel="stylesheet">-->
+    <link href="<c:url value="/resources/css/theme.css" />" rel="stylesheet">
 
 </head>
 <body class="grey lighten-4">
@@ -20,14 +20,7 @@
         <div class="col s8 offset-s3">
             <div class="card">
                 <div class="card-content">
-                    <div class="alert alert-success">
-                        <c:if test="${user_exist==true}">
-                            Bon retour sur le site ${user.getUsername()}
-                        </c:if>
-                        <c:if test="${user_exist==false}">
-                            Bienvenue sur le site ${user.getUsername()}. Votre compte vient d'être créé.
-                        </c:if>
-                    </div>
+                    <div class="alert alert-success">L'utilisateur a été créé</div>
                 </div>
             </div>
         </div>

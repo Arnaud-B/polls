@@ -26,8 +26,8 @@
                     <form action="/session/create/success/" method="POST" style="margin-top: 50px;">
                         <div class="input-field">
                             <div class="input-field">
-                                <input placeholder="Name" id="name" name="name" type="text" class="validate">
-                                <label for="name">Name</label>
+                                <input placeholder="Nom" id="name" name="name" type="text" class="validate">
+                                <label for="name">Nom</label>
                             </div>
                             <div class="input-field">
                                 <input placeholder="Question" id="question" name="question" type="text" class="validate">

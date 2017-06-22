@@ -5,6 +5,7 @@ import entities.Session;
 import entities.User;
 import filter.ModelData;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
@@ -20,6 +21,7 @@ import java.util.List;
  */
 @Controller
 @RequestMapping(path = "/session/")
+@Secured({"ROLE_ADMIN","ROLE_READER", "ROLE_USER"})
 public class SessionController {
 
     @Autowired
@@ -28,27 +30,26 @@ public class SessionController {
     private ResponseService responseService;
     @Autowired
     private UserService userService;
-
     @Autowired
     private ModelData modelData;
 
     private Boolean already_answered;
 
 
+    @Secured({"ROLE_ADMIN","ROLE_READER"})
     @RequestMapping(path = "create/",method = RequestMethod.GET)
-    @ResponseBody
     public ModelAndView sessionCreateView(){
         User user = modelData.getUser();
         Boolean disabled_button = true;
         if (user != null) {
-           disabled_button = false;
+            disabled_button = false;
         }
         ModelAndView model = new ModelAndView("session/create");
         model.addObject("disabled_button", disabled_button);
         return model;
     }
 
-
+    @Secured({"ROLE_ADMIN","ROLE_READER"})
     @RequestMapping(path = "create/success/",method = RequestMethod.POST)
     public ModelAndView createSuccessView(@RequestParam String question, @RequestParam String name, @RequestParam String[] answer){
         User user = modelData.getUser();
@@ -69,6 +70,7 @@ public class SessionController {
         return model;
     }
 
+    @Secured({"ROLE_ADMIN","ROLE_READER"})
     @RequestMapping(path = "answer/success/",method = RequestMethod.POST)
     public ModelAndView answerSuccessView(@RequestParam String[] responses_id, @RequestParam String session_id){
         User user = modelData.getUser();
@@ -98,7 +100,6 @@ public class SessionController {
         model.addObject("already_answered", this.already_answered);
         return model;
     }
-
 
     @RequestMapping(path = "list/",method = RequestMethod.GET)
     public ModelAndView listView(){

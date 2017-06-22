@@ -24,8 +24,8 @@
                     <form action="/user/create/success/" method="post" style="margin-top: 50px;">
                         <div class="input-field">
                             <div class="input-field">
-                                <input placeholder="username" id="username" name="username" type="text" class="validate">
-                                <label for="username">username</label>
+                                <input placeholder="Username" id="username" name="username" type="text" class="validate">
+                                <label for="username">Username</label>
                             </div>
                             <div class="input-field">
                                 <input placeholder="Âge" id="age" type="text" name="age" class="validate" pattern="{0-9}">

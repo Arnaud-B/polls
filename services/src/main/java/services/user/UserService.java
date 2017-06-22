@@ -1,11 +1,12 @@
 package services.user;
 
-import java.util.List;
-
+import entities.Role;
 import entities.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import repository.UserRepository;
+
+import java.util.List;
 
 @Service
 public class UserService implements IUserService {
@@ -30,8 +31,14 @@ public class UserService implements IUserService {
     }
 
     @Override
-    public List<User> findByRole(int role) { return userRepository.findByRole(role); }
+    public List<User> findByRolesIn(List<Role> roles) {
+        return userRepository.findByRolesIn(roles);
+    }
 
+    /*
+        @Override
+        public List<User> findByRole(int role) { return userRepository.findByRole(role); }
+    */
     @Override
     public boolean exists(Integer id) {
         boolean result = false;

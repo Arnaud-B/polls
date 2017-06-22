@@ -4,74 +4,82 @@ package controller;
 import entities.User;
 import filter.ModelData;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCrypt;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
+import services.role.RoleService;
 import services.user.UserService;
+
+import java.util.Arrays;
 
 /**
  * Created by Corentin on 23/05/2017.
  */
 @Controller
+@RequestMapping("/login/")
 public class LoginController {
 
     @Autowired
     private UserService userService;
 
     @Autowired
+    private RoleService roleService;
+
+    @Autowired
     private ModelData modelData;
 
-    private Boolean wrong_password;
-
-    @RequestMapping(path = "/login/",method = RequestMethod.GET)
+    @RequestMapping(path = "",method = RequestMethod.GET)
     public ModelAndView loginView(){
         ModelAndView model = new ModelAndView("login/index");
         return model;
     }
 
-    @RequestMapping(path = "/login/action/",method = RequestMethod.POST)
+    @RequestMapping(path = "action",method = RequestMethod.GET)
     public ModelAndView loginActionView(@RequestParam String username){
         User user = userService.findByUsername(username);
-        Boolean user_exist = false;
-        if(user != null)
-        {
-            user_exist = true;
+        ModelAndView model = null;
+        if(user != null) {
+            if(!user.getRoles().get(0).getAuthority().equals("ROLE_USER")){
+                model = new ModelAndView("input_password");
+            } else {
+                model = new ModelAndView("input_continue");
+                model.addObject("username", username);
+            }
+        } else {
+            model = new ModelAndView("input_age");
+            User  newUser = new User(username, BCrypt.hashpw("default",BCrypt.gensalt()));
+            newUser.setRoles(Arrays.asList(roleService.findById(User.ROLE_USER)));
+            userService.save(newUser);
         }
-        ModelAndView model = new ModelAndView("login/action");
-        model.addObject("user_exist", user_exist);
-        model.addObject("wrong_password", this.wrong_password);
-        model.addObject("username", username);
         return model;
     }
 
-    @RequestMapping(path = "/login/action/success/", method = RequestMethod.POST)
-    public ModelAndView loginActionSuccessView(@RequestParam String username, @RequestParam String password, @RequestParam String age){
+    @RequestMapping(path = "change", method = RequestMethod.GET)
+    @ResponseBody
+    public void loginChangeAge(@RequestParam String username, @RequestParam String age){
         User user = userService.findByUsername(username);
-        Boolean user_exist = false;
-        String pw_hash = BCrypt.hashpw(password, BCrypt.gensalt());
-        if(user != null) {
-            user_exist = true;
-            if(BCrypt.checkpw(password, user.getPassword())) {
-                this.wrong_password = false;
-                modelData.setUser(user);
-                return new ModelAndView("redirect:" + "/");
-            }
-            else {
-                this.wrong_password = true;
-                return this.loginActionView(user.getUsername());
-            }
+        if(user != null){
+            user.setAge(Integer.parseInt(age));
+            userService.save(user);
         }
-        else {
-            this.wrong_password = false;
-            int int_age = Integer.parseInt(age);
-            user = new User(username, pw_hash, int_age);
-            User new_user = userService.save(user);
+    }
+
+
+    @RequestMapping(path = "action/success/",method = RequestMethod.GET)
+    public ModelAndView loginActionSuccessGetView(){
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        if (auth != null && auth.getPrincipal() != null && auth.getPrincipal() instanceof User) {
+            User user = (User)auth.getPrincipal();
             modelData.setUser(user);
-            return new ModelAndView("redirect:" + "/");
         }
+        ModelAndView model = new ModelAndView("login/action_success");
+        return model;
     }
 
     @RequestMapping(path = "/logout/", method = RequestMethod.GET)

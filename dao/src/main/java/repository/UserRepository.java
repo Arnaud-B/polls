@@ -1,5 +1,6 @@
 package repository;
 
+import entities.Role;
 import entities.User;
 import org.springframework.data.repository.CrudRepository;
 
@@ -12,7 +13,7 @@ public interface UserRepository extends CrudRepository<User, Integer> {
 
     User findByUsername(String username);
     List<User> findAll();
-    List<User> findByRole(int role);
+    List<User> findByRolesIn(List<Role> roles);
     boolean exists(Integer id);
     User save(User user);
     void deleteUserById(int id);
