@@ -1,6 +1,11 @@
 package entities;
 
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
+
 import javax.persistence.*;
+import java.util.Collection;
+import java.util.List;
 import java.util.Set;
 
 /**
@@ -8,29 +13,59 @@ import java.util.Set;
  */
 @Entity
 @Table(name = "user")
-public class User {
+public class User implements UserDetails {
 
     @Id
-    @GeneratedValue(strategy= GenerationType.AUTO)
+    @GeneratedValue(strategy= GenerationType.IDENTITY)
     @Column
     private Integer id;
-
-    @Column
+    @Column(unique = true)
     private String username;
-
     @Column
     private int age;
-
     @Column
-    private int role;
+    private String password;
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(name = "user_role", joinColumns = {
+            @JoinColumn(name = "id", nullable = false, updatable = false)},
+            inverseJoinColumns = { @JoinColumn(name="roleId", nullable = false, updatable = false)})
+    private List<Role> roles;
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+    private Set<Session> sessions;
 
     public static int ROLE_USER = 1;
     public static int ROLE_ADMIN = 2;
     public static int ROLE_READER = 3;
 
+    public User() {
+    }
 
-    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
-    private Set<Session> sessions;
+    public User(int id) {
+        this.id = id;
+    }
+
+    public User(String username, int int_age) {
+        this.username = username;
+        this.age = int_age;
+    }
+
+    public User(String username, String password) {
+        this.username = username;
+        this.password = password;
+    }
+
+    public User(String username, String password, int age) {
+        this.username = username;
+        this.password = password;
+        this.age = age;
+        //this.roles = Arrays.asList(new Role());
+    }
+
+    public User(String username, String password, int age, int role) {
+        this.username = username;
+        this.password = password;
+        this.age = age;
+    }
 
     @ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(
@@ -39,31 +74,6 @@ public class User {
             inverseJoinColumns = @JoinColumn(name = "response_id", referencedColumnName = "id")
     )
     private Set<Response> responses;
-
-    public User() {
-    }
-
-    private String password;
-
-
-    public User(int id) {
-        this.id = id;
-    }
-
-    public User(String username, String password, int age) {
-        this.username = username;
-        this.password = password;
-        this.age = age;
-        this.role = ROLE_USER;
-    }
-
-    public User(String username, String password, int age, int role) {
-        this.username = username;
-        this.password = password;
-        this.age = age;
-        this.role = role;
-    }
-
 
     public Integer getId() {
         return id;
@@ -85,8 +95,33 @@ public class User {
         return username;
     }
 
+    @Override
+    public boolean isAccountNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isAccountNonLocked() {
+        return true;
+    }
+
+    @Override
+    public boolean isCredentialsNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isEnabled() {
+        return true;
+    }
+
     public void setUsername(String username) {
         this.username = username;
+    }
+
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        return roles;
     }
 
     public String getPassword() {
@@ -111,5 +146,13 @@ public class User {
 
     public void setResponses(Set<Response> responses) {
         this.responses = responses;
+    }
+
+    public List<Role> getRoles() {
+        return roles;
+    }
+
+    public void setRoles(List<Role> roles) {
+        this.roles = roles;
     }
 }

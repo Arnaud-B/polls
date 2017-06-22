@@ -20,7 +20,7 @@
         <div class="col s8 offset-s3">
             <div class="card">
                 <div class="card-content">
-                    <div class="alert alert-success">L'utilisateur a été créé</div>
+                    <div class="alert alert-success"></div>
                 </div>
             </div>
         </div>

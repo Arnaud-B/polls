@@ -3,6 +3,7 @@ package controller;
 import entities.Response;
 import entities.Session;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -18,6 +19,7 @@ import java.util.List;
  * Created by nono on 19/06/2017.
  */
 @Controller
+@Secured({"ROLE_ADMIN","ROLE_READER", "ROLE_USER"})
 public class SessionController {
 
     @Autowired
@@ -25,12 +27,14 @@ public class SessionController {
     @Autowired
     private ResponseService responseService;
 
+    @Secured({"ROLE_ADMIN","ROLE_READER"})
     @RequestMapping(path = "/session/create/",method = RequestMethod.GET)
     public ModelAndView sessionCreateView(){
         ModelAndView model = new ModelAndView("session/create");
         return model;
     }
 
+    @Secured({"ROLE_ADMIN","ROLE_READER"})
     @RequestMapping(path = "/session/create/success/",method = RequestMethod.POST)
     public ModelAndView createSuccessView(@RequestParam String question, @RequestParam String name, @RequestParam String[] answer){
         Session session = new Session();
@@ -48,6 +52,7 @@ public class SessionController {
         return model;
     }
 
+    @Secured({"ROLE_ADMIN","ROLE_READER"})
     @RequestMapping(path = "/session/answer/success/",method = RequestMethod.POST)
     public ModelAndView answerSuccessView(@RequestParam String[] responses_id){
         for (String response : responses_id)

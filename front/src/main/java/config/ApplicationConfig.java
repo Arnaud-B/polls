@@ -7,16 +7,20 @@ import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.boot.context.web.SpringBootServletInitializer;
 import org.springframework.boot.orm.jpa.EntityScan;
 import org.springframework.context.annotation.ComponentScan;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Import;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 
 /**
  * Created by Nico on 09/02/2016.
  */
+@Configuration
 @SpringBootApplication
 @EnableAutoConfiguration
 @EnableJpaRepositories({"repository"})
 @ComponentScan(basePackages = {"config","controller","filter","servlet","services"})
 @EntityScan(basePackages = {"entities"})
+@Import(WebSecurityConfig.class)
 public class ApplicationConfig extends SpringBootServletInitializer {
 
     @Override
