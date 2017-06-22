@@ -89,8 +89,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
             user.setRoles(Arrays.asList(roleService.findByName("ROLE_ADMIN")));
             userService.save(user);
         }
-        if(userService.findByUsername("Reader") == null){
-            User user = new User("Reader", passwordEncoder.encode("azerty"), 22);
+        if(userService.findByUsername("Redactor") == null){
+            User user = new User("Redactor", passwordEncoder.encode("azerty"), 22);
             user.setRoles(Arrays.asList(roleService.findByName("ROLE_REDACTOR")));
             userService.save(user);
         }
