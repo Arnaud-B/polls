@@ -39,5 +39,8 @@
             </ul>
         </div>
     </li>
+    <li class="bold">
+        <a class="collapsible-header waves-effect waves-blue" href="/logout"><i class="small material-icons">power_settings_new</i>Se déconnecter</a>
+    </li>
 </ul>
 <a href="#" data-activates="slide-out" class="button-collapse"><i class="material-icons">menu</i></a>

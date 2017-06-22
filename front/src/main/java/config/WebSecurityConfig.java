@@ -40,6 +40,10 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .defaultSuccessUrl("/login/action/success/")
                 .failureUrl("/login/")
                 .and()
+                .logout()
+                .logoutUrl("/logout")
+                .logoutSuccessUrl("/login/")
+                .and()
                 .sessionManagement()
                 .invalidSessionUrl("/login/")
                 .maximumSessions( 1 );
@@ -82,6 +86,11 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         if(userService.findByUsername("Admin") == null){
             User user = new User("Admin", passwordEncoder.encode("azerty"), 22);
             user.setRoles(Arrays.asList(roleService.findById(User.ROLE_ADMIN)));
+            userService.save(user);
+        }
+        if(userService.findByUsername("Reader") == null){
+            User user = new User("Reader", passwordEncoder.encode("azerty"), 22);
+            user.setRoles(Arrays.asList(roleService.findById(User.ROLE_READER)));
             userService.save(user);
         }
         if(userService.findByUsername("User") == null){
