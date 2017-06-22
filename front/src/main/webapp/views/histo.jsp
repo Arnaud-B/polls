@@ -29,10 +29,10 @@
                         Histogrammes des réponses par tranche d'âge
                     </h4>
                     <div class="row">
-                        <c:forEach var="response" items="${responses}">
+                        <c:forEach var="response" items="${responses}" varStatus="loopCounter">
                         <div class="col s4">
-                            <h5 class="center-align">Réponse n°${response.id}</h5>
-                            <canvas id="answer${response.id}"></canvas>
+                            <h5 class="center-align">Réponse n°${loopCounter.count}</h5>
+                            <canvas id="answer${loopCounter.count}"></canvas>
                         </div>
                         </c:forEach>
                     </div>
