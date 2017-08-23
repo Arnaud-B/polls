@@ -4,26 +4,34 @@ import entities.Role;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import repository.RoleRepository;
-
 import java.util.List;
 
 /**
  * Created by Corentin on 20/06/2017.
  */
-@Service
+@Service("roleService")
 public class RoleService implements IRoleService {
 
-    @Autowired
     private RoleRepository roleRepository;
 
-    @Override
-    public Role findById(Integer id) {
-        return roleRepository.findRoleByRoleId(id);
+    @Autowired
+    public RoleService(RoleRepository roleRepository) {
+        this.roleRepository = roleRepository;
     }
 
     @Override
     public List<Role> findAll() {
         return roleRepository.findAll();
+    }
+
+    @Override
+    public Role findOne(Integer id) {
+        return roleRepository.findOne(id);
+    }
+
+    @Override
+    public Role findByName(String name) {
+        return roleRepository.findByName(name);
     }
 
     @Override
@@ -37,7 +45,7 @@ public class RoleService implements IRoleService {
     }
 
     @Override
-    public void deleteRoleById(Integer id) {
-        roleRepository.deleteRoleByRoleId(id);
+    public void delete(Integer id) {
+        roleRepository.delete(id);
     }
 }

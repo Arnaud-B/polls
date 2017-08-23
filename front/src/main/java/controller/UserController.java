@@ -2,7 +2,6 @@ package controller;
 
 import entities.Role;
 import entities.User;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.security.crypto.bcrypt.BCrypt;
 import org.springframework.stereotype.Controller;
@@ -10,9 +9,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
-import repository.RoleRepository;
-import repository.UserRepository;
-
+import services.role.RoleService;
+import services.user.UserService;
+import javax.annotation.Resource;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -25,10 +24,11 @@ import java.util.List;
 @Secured({"ROLE_ADMIN"})
 public class UserController {
 
-    @Autowired
-    private UserRepository userRepository;
-    @Autowired
-    private RoleRepository roleRepository;
+    @Resource(name = "userService")
+    private UserService userService;
+
+    @Resource(name = "roleService")
+    private RoleService roleService;
 
     @RequestMapping(path = "create/",method = RequestMethod.GET)
     public ModelAndView createView(){
@@ -40,8 +40,8 @@ public class UserController {
     public ModelAndView createSuccessView(@RequestParam String username, @RequestParam String age, @RequestParam String password){
         int int_age = Integer.parseInt(age);
         User user = new User(username, BCrypt.hashpw(password, BCrypt.gensalt()), int_age);
-        user.setRoles(Arrays.asList(roleRepository.findRoleByRoleId(User.ROLE_READER)));
-        User u = userRepository.save(user);
+        user.setRoles(Arrays.asList(roleService.findByName("ROLE_REDACTOR")));
+        User u = userService.save(user);
         ModelAndView model = new ModelAndView("user/create_success");
         return model;
     }
@@ -49,8 +49,8 @@ public class UserController {
     @RequestMapping(path = "list/",method = RequestMethod.GET)
     public ModelAndView listView(){
         List<Role> roles = new ArrayList<Role>();
-        roles.add(roleRepository.findOne(3));
-        List<User> users = userRepository.findByRolesIn(roles);
+        roles.add(roleService.findByName("ROLE_REDACTOR"));
+        List<User> users = userService.findByRolesIn(roles);
         ModelAndView model = new ModelAndView("user/list");
         model.addObject("users", users);
         return model;

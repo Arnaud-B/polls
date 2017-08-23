@@ -11,12 +11,18 @@ import java.util.List;
  */
 public interface ResponseRepository extends CrudRepository<Response, Integer> {
 
-    Response findById(Integer id);
     List<Response> findAll();
-    List<Response> findBySession_Id(Integer id);
+
+    Response findOne(Integer id);
+
+    List<Response> findBySession_Id(int id);
+
     List<Response> findByUsersIn(List<User> users);
+
     boolean exists(Integer id);
+
     Response save(Response response);
-    void deleteResponseById(int id);
+
+    void delete(Integer id);
 
 }

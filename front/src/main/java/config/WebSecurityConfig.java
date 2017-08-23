@@ -3,6 +3,7 @@ package config;
 import entities.Role;
 import entities.User;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
@@ -15,6 +16,7 @@ import services.AuthClientService;
 import services.role.RoleService;
 import services.user.UserService;
 
+import javax.annotation.Resource;
 import java.util.Arrays;
 
 /**
@@ -24,6 +26,15 @@ import java.util.Arrays;
 @EnableWebSecurity
 @EnableGlobalMethodSecurity(securedEnabled = true)
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
+
+    @Resource(name = "authClientService")
+    private AuthClientService authClientService;
+
+    @Resource(name = "userService")
+    private UserService userService;
+
+    @Resource(name = "roleService")
+    private RoleService roleService;
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
@@ -50,13 +61,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     }
 
-    @Autowired
-    private AuthClientService authClientService;
-    @Autowired
-    private UserService userService;
-    @Autowired
-    private RoleService roleService;
-
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
         auth.userDetailsService(authClientService).passwordEncoder(new BCryptPasswordEncoder());
@@ -65,37 +69,34 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Autowired
     public void configureGlobal(AuthenticationManagerBuilder builder) throws Exception{
         PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
-        if(roleService.findById(User.ROLE_USER) == null){
+        if(roleService.findByName("ROLE_USER") == null){
             Role role = new Role();
-            role.setRoleId(User.ROLE_USER);
-            role.setRoleName("ROLE_USER");
+            role.setName("ROLE_USER");
             roleService.save(role);
         }
-        if(roleService.findById(User.ROLE_ADMIN) == null){
+        if(roleService.findByName("ROLE_ADMIN") == null){
             Role role = new Role();
-            role.setRoleId(User.ROLE_ADMIN);
-            role.setRoleName("ROLE_ADMIN");
+            role.setName("ROLE_ADMIN");
             roleService.save(role);
         }
-        if(roleService.findById(User.ROLE_READER) == null){
+        if(roleService.findByName("ROLE_REDACTOR") == null){
             Role role = new Role();
-            role.setRoleId(User.ROLE_READER);
-            role.setRoleName("ROLE_READER");
+            role.setName("ROLE_REDACTOR");
             roleService.save(role);
         }
         if(userService.findByUsername("Admin") == null){
             User user = new User("Admin", passwordEncoder.encode("azerty"), 22);
-            user.setRoles(Arrays.asList(roleService.findById(User.ROLE_ADMIN)));
+            user.setRoles(Arrays.asList(roleService.findByName("ROLE_ADMIN")));
             userService.save(user);
         }
-        if(userService.findByUsername("Reader") == null){
-            User user = new User("Reader", passwordEncoder.encode("azerty"), 22);
-            user.setRoles(Arrays.asList(roleService.findById(User.ROLE_READER)));
+        if(userService.findByUsername("Redactor") == null){
+            User user = new User("Redactor", passwordEncoder.encode("azerty"), 22);
+            user.setRoles(Arrays.asList(roleService.findByName("ROLE_REDACTOR")));
             userService.save(user);
         }
         if(userService.findByUsername("User") == null){
             User user = new User("User", passwordEncoder.encode("default"), 22);
-            user.setRoles(Arrays.asList(roleService.findById(User.ROLE_USER)));
+            user.setRoles(Arrays.asList(roleService.findByName("ROLE_USER")));
             userService.save(user);
         }
         builder.userDetailsService(authClientService).passwordEncoder(passwordEncoder);

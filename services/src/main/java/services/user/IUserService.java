@@ -10,12 +10,19 @@ import java.util.List;
  */
 public interface IUserService {
 
-    User findByUsername(String username);
-    User findById(int id);
     List<User> findAll();
+
     List<User> findByRolesIn(List<Role> roles);
+
+    User findOne(Integer id);
+
+    User findByUsername(String username);
+
     boolean exists(Integer id);
+
     User save(User user);
+
     boolean addUser(User user);
-    void deleteUserById(int id);
+
+    void delete(Integer id);
 }

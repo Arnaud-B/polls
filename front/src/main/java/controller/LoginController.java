@@ -1,9 +1,7 @@
 package controller;
 
-
 import entities.User;
 import filter.ModelData;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -17,6 +15,7 @@ import org.springframework.web.servlet.ModelAndView;
 import services.role.RoleService;
 import services.user.UserService;
 
+import javax.annotation.Resource;
 import java.util.Arrays;
 
 /**
@@ -26,13 +25,13 @@ import java.util.Arrays;
 @RequestMapping("/login/")
 public class LoginController {
 
-    @Autowired
+    @Resource(name = "userService")
     private UserService userService;
 
-    @Autowired
+    @Resource(name = "roleService")
     private RoleService roleService;
 
-    @Autowired
+    @Resource(name = "modelData")
     private ModelData modelData;
 
     @RequestMapping(path = "",method = RequestMethod.GET)
@@ -55,7 +54,7 @@ public class LoginController {
         } else {
             model = new ModelAndView("input_age");
             User  newUser = new User(username, BCrypt.hashpw("default",BCrypt.gensalt()));
-            newUser.setRoles(Arrays.asList(roleService.findById(User.ROLE_USER)));
+            newUser.setRoles(Arrays.asList(roleService.findByName("ROLE_USER")));
             userService.save(newUser);
         }
         return model;

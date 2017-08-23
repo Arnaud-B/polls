@@ -10,12 +10,18 @@ import java.util.List;
  */
 public interface IResponseService {
 
-    Response findById(Integer id);
     List<Response> findAll();
-    List<Response> findBySession_Id(Integer id);
+
+    Response findOne(Integer id);
+
+    List<Response> findBySessionId(Integer id);
+
     List<Response> findByUsers(List<User> users);
+
     boolean exists(Integer id);
+
     Response save(Response response);
-    void deleteResponseById(Integer id);
+
+    void delete(Integer id);
 
 }

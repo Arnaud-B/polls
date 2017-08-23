@@ -1,7 +1,6 @@
 package services.role;
 
 import entities.Role;
-
 import java.util.List;
 
 /**
@@ -9,10 +8,17 @@ import java.util.List;
  */
 public interface IRoleService {
 
-    Role findById(Integer id);
     List<Role> findAll();
+
+    Role findOne(Integer id);
+
+    Role findByName(String name);
+
     boolean exists(Integer id);
+
     Role save(Role role);
-    void deleteRoleById(Integer id);
+
+    void delete(Integer id);
+
 }
 
