@@ -3,7 +3,6 @@ package entities;
 import javax.persistence.*;
 import java.sql.Date;
 import java.util.List;
-import java.util.Set;
 
 /**
  * Created by nono on 23/05/2017.

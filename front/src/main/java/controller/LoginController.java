@@ -5,6 +5,7 @@ import entities.User;
 import filter.ModelData;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCrypt;
 import org.springframework.stereotype.Controller;
@@ -77,9 +78,17 @@ public class LoginController {
         if (auth != null && auth.getPrincipal() != null && auth.getPrincipal() instanceof User) {
             User user = (User)auth.getPrincipal();
             modelData.setUser(user);
+            for (GrantedAuthority g : user.getAuthorities()){
+                if(g.getAuthority().equals(roleService.findById(User.ROLE_USER).getAuthority())){
+                    return new ModelAndView("session/list");
+                } else {
+                    return new ModelAndView("stats");
+                }
+            }
+        } else {
+            return new ModelAndView("login/index");
         }
-        ModelAndView model = new ModelAndView("login/action_success");
-        return model;
+        return null;
     }
 
     @RequestMapping(path = "/logout/", method = RequestMethod.GET)
