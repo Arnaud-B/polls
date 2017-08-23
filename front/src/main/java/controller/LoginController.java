@@ -78,7 +78,7 @@ public class LoginController {
             User user = (User)auth.getPrincipal();
             modelData.setUser(user);
             for (GrantedAuthority g : user.getAuthorities()){
-                if(g.getAuthority().equals(roleService.findById(User.ROLE_USER).getAuthority())){
+                if(g.getAuthority().equals(roleService.findOne(User.ROLE_USER).getAuthority())){
                     return new ModelAndView("session/list");
                 } else {
                     return new ModelAndView("stats");

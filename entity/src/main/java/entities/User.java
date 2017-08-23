@@ -28,6 +28,10 @@ public class User implements UserDetails {
     @Column
     private String password;
 
+    public static int ROLE_USER = 1;
+    public static int ROLE_ADMIN = 2;
+    public static int ROLE_READER = 3;
+
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(
         name = "users_roles",
